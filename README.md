@@ -1,8 +1,3 @@
-Ahh, yes 😄 — you mean **one single code block containing the entire README**, so you can click copy once and paste it directly into `README.md`.
-
-Here is the complete professional README in **one block**:
-
-````markdown
 # 🚀 RepoPulse
 
 > **An explainable Git repository engineering analytics platform that turns repository history into actionable engineering insights.**
@@ -49,43 +44,39 @@ The long-term vision of RepoPulse is to become a lightweight engineering intelli
 
 A future analysis could look like:
 
-```text
-Repository Health
-────────────────────────────
+    Repository Health
+    ────────────────────────────
 
-Code Stability       72 / 100
-Commit Discipline    70 / 100
-Documentation        81 / 100
-Contributor Spread   63 / 100
+    Code Stability       72 / 100
+    Commit Discipline    70 / 100
+    Documentation        81 / 100
+    Contributor Spread   63 / 100
 
-Overall Health       69 / 100
-````
+    Overall Health       69 / 100
 
-However, RepoPulse will not simply produce unexplained numbers.
+RepoPulse will not simply produce unexplained numbers.
 
 Every important metric should provide:
 
-* The underlying evidence
-* The calculation used
-* The reason for the result
-* Appropriate interpretation
-* Known limitations
+- The underlying evidence
+- The calculation used
+- The reason for the result
+- Appropriate interpretation
+- Known limitations
 
-For example:
+Example:
 
-```text
-⚠ High Code Churn
+    ⚠ High Code Churn
 
-authentication.py was modified frequently during
-recent development.
+    authentication.py was modified frequently during
+    recent development.
 
-Possible interpretation:
-The module may be undergoing active development,
-frequent refactoring, or instability.
+    Possible interpretation:
+    The module may be undergoing active development,
+    frequent refactoring, or instability.
 
-Recommendation:
-Review recent changes and relevant test coverage.
-```
+    Recommendation:
+    Review recent changes and relevant test coverage.
 
 > **Important:** High activity or high churn does not automatically mean poor engineering. RepoPulse will distinguish measurable repository evidence from interpretation.
 
@@ -95,71 +86,71 @@ Review recent changes and relevant test coverage.
 
 ### 🔍 Repository Analysis
 
-* [ ] Analyze local Git repositories
-* [ ] Detect repository metadata
-* [ ] Analyze commit history
-* [ ] Analyze branches
-* [ ] Analyze contributors
-* [ ] Analyze file modification history
+- [ ] Analyze local Git repositories
+- [ ] Detect repository metadata
+- [ ] Analyze commit history
+- [ ] Analyze branches
+- [ ] Analyze contributors
+- [ ] Analyze file modification history
 
 ### 📊 Engineering Metrics
 
-* [ ] Commit frequency
-* [ ] Commit size analysis
-* [ ] Files changed per commit
-* [ ] Lines added and removed
-* [ ] Code churn
-* [ ] File change frequency
-* [ ] Repository hotspots
-* [ ] Development concentration
-* [ ] Historical development trends
+- [ ] Commit frequency
+- [ ] Commit size analysis
+- [ ] Files changed per commit
+- [ ] Lines added and removed
+- [ ] Code churn
+- [ ] File change frequency
+- [ ] Repository hotspots
+- [ ] Development concentration
+- [ ] Historical development trends
 
 ### 🧠 Explainable Insights
 
-* [ ] Explain metric calculations
-* [ ] Identify unusual repository patterns
-* [ ] Provide evidence behind insights
-* [ ] Separate measurements from interpretations
-* [ ] Document assumptions and limitations
-* [ ] Avoid misleading engineering conclusions
+- [ ] Explain metric calculations
+- [ ] Identify unusual repository patterns
+- [ ] Provide evidence behind insights
+- [ ] Separate measurements from interpretations
+- [ ] Document assumptions and limitations
+- [ ] Avoid misleading engineering conclusions
 
 ### 🌐 GitHub Integration
 
-* [ ] Analyze public GitHub repositories
-* [ ] GitHub API integration
-* [ ] Repository URL analysis
-* [ ] Repository comparison
-* [ ] Pull request analysis
-* [ ] Issue activity analysis
+- [ ] Analyze public GitHub repositories
+- [ ] GitHub API integration
+- [ ] Repository URL analysis
+- [ ] Repository comparison
+- [ ] Pull request analysis
+- [ ] Issue activity analysis
 
 ### ⚡ Backend
 
-* [ ] FastAPI REST API
-* [ ] Repository analysis endpoints
-* [ ] Analysis result storage
-* [ ] Background analysis jobs
-* [ ] Input validation
-* [ ] Structured error handling
+- [ ] FastAPI REST API
+- [ ] Repository analysis endpoints
+- [ ] Analysis result storage
+- [ ] Background analysis jobs
+- [ ] Input validation
+- [ ] Structured error handling
 
 ### 📈 Dashboard
 
-* [ ] Repository overview
-* [ ] Engineering health dashboard
-* [ ] Commit activity visualization
-* [ ] Code hotspot visualization
-* [ ] Contributor analytics
-* [ ] Historical trends
-* [ ] Exportable reports
+- [ ] Repository overview
+- [ ] Engineering health dashboard
+- [ ] Commit activity visualization
+- [ ] Code hotspot visualization
+- [ ] Contributor analytics
+- [ ] Historical trends
+- [ ] Exportable reports
 
 ### 🧪 Engineering Quality
 
-* [ ] Automated unit tests
-* [ ] Integration tests
-* [ ] Logging
-* [ ] Error handling
-* [ ] Configuration management
-* [ ] CI/CD pipeline
-* [ ] Docker support
+- [ ] Automated unit tests
+- [ ] Integration tests
+- [ ] Logging
+- [ ] Error handling
+- [ ] Configuration management
+- [ ] CI/CD pipeline
+- [ ] Docker support
 
 ---
 
@@ -167,36 +158,36 @@ Review recent changes and relevant test coverage.
 
 ### Core
 
-* **Python** — Application and analysis engine
-* **Git** — Version control and repository history
-* **GitPython** — Git repository interaction
+- **Python** — Application and analysis engine
+- **Git** — Version control and repository history
+- **GitPython** — Git repository interaction
 
 ### Backend
 
-* **FastAPI** — REST API
-* **Pydantic** — Data validation
+- **FastAPI** — REST API
+- **Pydantic** — Data validation
 
 ### Database
 
-* **SQLite** — Initial local persistence
-* **PostgreSQL** — Future production database
+- **SQLite** — Initial local persistence
+- **PostgreSQL** — Future production database
 
 ### Testing
 
-* **Pytest** — Automated testing
+- **Pytest** — Automated testing
 
 ### Development & Deployment
 
-* **Git**
-* **GitHub**
-* **Linux**
-* **Docker**
-* **GitHub Actions**
+- **Git**
+- **GitHub**
+- **Linux**
+- **Docker**
+- **GitHub Actions**
 
 ### Future Frontend
 
-* React / Next.js
-* Data visualization libraries
+- React / Next.js
+- Data visualization libraries
 
 > Technologies will be introduced only when they become necessary for the current milestone.
 
@@ -240,76 +231,74 @@ A metric should never claim more than the underlying repository evidence can sup
 
 ## 📚 Concepts Learned
 
-RepoPulse is designed to progressively develop practical software engineering skills.
-
 ### Python
 
-* Functions
-* Modules
-* Classes
-* Type hints
-* Exception handling
-* File handling
-* Data structures
-* Virtual environments
-* Package management
-* CLI development
+- Functions
+- Modules
+- Classes
+- Type hints
+- Exception handling
+- File handling
+- Data structures
+- Virtual environments
+- Package management
+- CLI development
 
 ### Git & GitHub
 
-* Git repositories
-* Commit history
-* Branches
-* Diffs
-* File changes
-* GitPython
-* GitHub API
-* Repository analysis
+- Git repositories
+- Commit history
+- Branches
+- Diffs
+- File changes
+- GitPython
+- GitHub API
+- Repository analysis
 
 ### Software Engineering
 
-* Project architecture
-* Separation of concerns
-* Modular design
-* Error handling
-* Logging
-* Testing
-* API design
-* Configuration management
-* Documentation
+- Project architecture
+- Separation of concerns
+- Modular design
+- Error handling
+- Logging
+- Testing
+- API design
+- Configuration management
+- Documentation
 
 ### Data & Analytics
 
-* Data collection
-* Data transformation
-* Metric calculation
-* Aggregation
-* Trend analysis
-* Statistical reasoning
-* Explainable scoring
+- Data collection
+- Data transformation
+- Metric calculation
+- Aggregation
+- Trend analysis
+- Statistical reasoning
+- Explainable scoring
 
 ### DevOps
 
-* Docker
-* CI/CD
-* GitHub Actions
-* Linux development
-* Environment management
+- Docker
+- CI/CD
+- GitHub Actions
+- Linux development
+- Environment management
 
 ---
 
 ## 📈 Project Progress
 
-| Version | Milestone                                      | Status         |
-| ------- | ---------------------------------------------- | -------------- |
-| v0.1.0  | Project foundation & local repository analyzer | 🔄 In Progress |
-| v0.2.0  | Commit intelligence                            | ⏳ Planned      |
-| v0.3.0  | Code hotspot analysis                          | ⏳ Planned      |
-| v0.4.0  | Engineering health model                       | ⏳ Planned      |
-| v0.5.0  | GitHub integration                             | ⏳ Planned      |
-| v0.6.0  | REST API                                       | ⏳ Planned      |
-| v0.7.0  | Web dashboard                                  | ⏳ Planned      |
-| v1.0.0  | Production-ready portfolio release             | ⏳ Planned      |
+| Version | Milestone | Status |
+|---|---|---|
+| v0.1.0 | Project foundation & local repository analyzer | 🔄 In Progress |
+| v0.2.0 | Commit intelligence | ⏳ Planned |
+| v0.3.0 | Code hotspot analysis | ⏳ Planned |
+| v0.4.0 | Engineering health model | ⏳ Planned |
+| v0.5.0 | GitHub integration | ⏳ Planned |
+| v0.6.0 | REST API | ⏳ Planned |
+| v0.7.0 | Web dashboard | ⏳ Planned |
+| v1.0.0 | Production-ready portfolio release | ⏳ Planned |
 
 ---
 
@@ -321,9 +310,7 @@ Build a command-line tool capable of analyzing a local Git repository.
 
 Expected usage:
 
-```bash
-repopulse analyze .
-```
+    repopulse analyze .
 
 Initial output will provide basic repository information and development statistics.
 
@@ -331,13 +318,13 @@ Initial output will provide basic repository information and development statist
 
 Analyze:
 
-* Commit frequency
-* Commit size
-* Files changed
-* Lines added
-* Lines removed
-* Development activity
-* Commit patterns
+- Commit frequency
+- Commit size
+- Files changed
+- Lines added
+- Lines removed
+- Development activity
+- Commit patterns
 
 ### Phase 3 — Code Hotspots
 
@@ -349,11 +336,11 @@ Develop an explainable engineering-health model based on multiple repository sig
 
 The model will document:
 
-* Inputs
-* Calculations
-* Assumptions
-* Interpretation
-* Limitations
+- Inputs
+- Calculations
+- Assumptions
+- Interpretation
+- Limitations
 
 ### Phase 5 — GitHub Integration
 
@@ -361,9 +348,7 @@ Allow RepoPulse to analyze repositories using GitHub URLs and APIs.
 
 Example:
 
-```bash
-repopulse analyze https://github.com/user/repository
-```
+    repopulse analyze https://github.com/user/repository
 
 ### Phase 6 — REST API
 
@@ -377,14 +362,14 @@ Build a professional web interface for exploring repository analytics and histor
 
 Release a polished version containing:
 
-* CLI
-* API
-* Dashboard
-* GitHub integration
-* Automated tests
-* Documentation
-* Docker support
-* CI/CD
+- CLI
+- API
+- Dashboard
+- GitHub integration
+- Automated tests
+- Documentation
+- Docker support
+- CI/CD
 
 ---
 
@@ -392,13 +377,11 @@ Release a polished version containing:
 
 Current structure:
 
-```text
-RepoPulse/
-├── src/
-├── tests/
-├── .gitignore
-└── README.md
-```
+    RepoPulse/
+    ├── src/
+    ├── tests/
+    ├── .gitignore
+    └── README.md
 
 The structure will evolve as the application architecture becomes more sophisticated.
 
@@ -408,17 +391,13 @@ The structure will evolve as the application architecture becomes more sophistic
 
 > RepoPulse is currently under development. Usage instructions will be updated as executable features are introduced.
 
-Future CLI usage is expected to look similar to:
+Future CLI usage:
 
-```bash
-repopulse analyze <repository>
-```
+    repopulse analyze <repository>
 
 Example:
 
-```bash
-repopulse analyze .
-```
+    repopulse analyze .
 
 ---
 
@@ -428,18 +407,16 @@ Automated testing will be introduced alongside the analysis engine.
 
 The project will eventually support:
 
-```bash
-pytest
-```
+    pytest
 
 Tests will cover:
 
-* Repository analysis
-* Metric calculations
-* Edge cases
-* Invalid repositories
-* Error handling
-* API behavior
+- Repository analysis
+- Metric calculations
+- Edge cases
+- Invalid repositories
+- Error handling
+- API behavior
 
 ---
 
@@ -449,13 +426,13 @@ RepoPulse may eventually analyze repositories containing sensitive source code.
 
 The project will therefore consider:
 
-* Secure handling of repository data
-* Environment variables for secrets
-* No hardcoded API credentials
-* Safe GitHub API authentication
-* Input validation
-* Temporary repository cleanup
-* Appropriate logging practices
+- Secure handling of repository data
+- Environment variables for secrets
+- No hardcoded API credentials
+- Safe GitHub API authentication
+- Input validation
+- Temporary repository cleanup
+- Appropriate logging practices
 
 Sensitive repository contents should never be unnecessarily transmitted or stored.
 
@@ -463,37 +440,25 @@ Sensitive repository contents should never be unnecessarily transmitted or store
 
 ## 🏗️ Future Architecture
 
-```text
-                    ┌─────────────────────┐
-                    │     User / CLI      │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Analysis Engine   │
-                    └──────────┬──────────┘
-                               │
-                 ┌─────────────┼─────────────┐
-                 ▼             ▼             ▼
-          ┌────────────┐ ┌────────────┐ ┌────────────┐
-          │  Git Data  │ │ Code Data  │ │  Metadata  │
-          └──────┬─────┘ └──────┬─────┘ └──────┬─────┘
-                 │              │              │
-                 └──────────────┼──────────────┘
-                                ▼
-                    ┌─────────────────────┐
-                    │ Metrics & Analytics │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │ Explainable Insights│
-                    └──────────┬──────────┘
-                               │
-                       ┌───────┴───────┐
-                       ▼               ▼
-                  REST API        Dashboard
-```
+    User / CLI
+         │
+         ▼
+    Analysis Engine
+         │
+         ├───────────────┬───────────────┐
+         ▼               ▼               ▼
+      Git Data       Code Data       Metadata
+         │               │               │
+         └───────────────┼───────────────┘
+                         ▼
+                Metrics & Analytics
+                         │
+                         ▼
+                Explainable Insights
+                         │
+                   ┌─────┴─────┐
+                   ▼           ▼
+                REST API   Dashboard
 
 > This is a long-term architectural direction. Components will be introduced incrementally.
 
@@ -503,18 +468,18 @@ Sensitive repository contents should never be unnecessarily transmitted or store
 
 Future improvements may include:
 
-* Repository comparison
-* Historical health trends
-* Custom analysis configuration
-* Pull request analysis
-* Issue activity analysis
-* Release analysis
-* Team development analytics
-* Advanced hotspot detection
-* Configurable engineering metrics
-* Exportable reports
-* Performance optimization
-* Plugin architecture
+- Repository comparison
+- Historical health trends
+- Custom analysis configuration
+- Pull request analysis
+- Issue activity analysis
+- Release analysis
+- Team development analytics
+- Advanced hotspot detection
+- Configurable engineering metrics
+- Exportable reports
+- Performance optimization
+- Plugin architecture
 
 ---
 
@@ -524,18 +489,18 @@ The primary learning goal of RepoPulse is to move beyond writing isolated Python
 
 By completing this project, the goal is to gain hands-on experience with:
 
-* Python application development
-* Git internals and repository analysis
-* Data processing
-* Software architecture
-* REST APIs
-* Databases
-* Testing
-* Linux
-* Docker
-* CI/CD
-* GitHub APIs
-* Production-oriented development practices
+- Python application development
+- Git internals and repository analysis
+- Data processing
+- Software architecture
+- REST APIs
+- Databases
+- Testing
+- Linux
+- Docker
+- CI/CD
+- GitHub APIs
+- Production-oriented development practices
 
 ---
 
@@ -574,6 +539,3 @@ The long-term vision is to turn that question into a practical developer tool th
 ## 📄 License
 
 License will be added before the first stable release.
-
-````
-
