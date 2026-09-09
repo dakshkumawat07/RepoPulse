@@ -1,5 +1,16 @@
+from dataclasses import dataclass
 from pathlib import Path
 import subprocess
+
+
+@dataclass
+class CommitInfo:
+    """Store useful information about a Git commit."""
+
+    hash: str
+    author: str
+    date: str
+    message: str
 
 
 def is_git_repository(repository_path: str) -> bool:
@@ -33,7 +44,7 @@ def run_git_command(repository_path: str, *arguments: str) -> str:
         *arguments: Git command arguments.
 
     Returns:
-        The command output with surrounding whitespace removed.
+        Command output without surrounding whitespace.
 
     Raises:
         RuntimeError: If the Git command fails.
@@ -74,20 +85,48 @@ def get_commit_count(repository_path: str) -> int:
     return int(output)
 
 
-def get_first_commit(repository_path: str) -> str:
-    """Return the hash of the first commit in the repository."""
-    return run_git_command(
+def get_commit(repository_path: str, revision: str) -> CommitInfo:
+    """
+    Return structured information about a Git commit.
+
+    Args:
+        repository_path: Path to the Git repository.
+        revision: Git revision such as HEAD or a commit hash.
+
+    Returns:
+        CommitInfo containing hash, author, date, and message.
+    """
+    output = run_git_command(
+        repository_path,
+        "show",
+        "-s",
+        "--format=%H%x1f%an%x1f%ad%x1f%s",
+        "--date=iso",
+        revision,
+    )
+
+    commit_hash, author, date, message = output.split("\x1f")
+
+    return CommitInfo(
+        hash=commit_hash,
+        author=author,
+        date=date,
+        message=message,
+    )
+
+
+def get_first_commit(repository_path: str) -> CommitInfo:
+    """Return information about the first commit."""
+    first_commit_hash = run_git_command(
         repository_path,
         "rev-list",
         "--max-parents=0",
         "HEAD",
     )
 
+    return get_commit(repository_path, first_commit_hash)
 
-def get_latest_commit(repository_path: str) -> str:
-    """Return the hash of the latest commit in the repository."""
-    return run_git_command(
-        repository_path,
-        "rev-parse",
-        "HEAD",
-    )
+
+def get_latest_commit(repository_path: str) -> CommitInfo:
+    """Return information about the latest commit."""
+    return get_commit(repository_path, "HEAD")

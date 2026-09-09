@@ -36,28 +36,45 @@ def main() -> None:
     parser = create_parser()
     args = parser.parse_args()
 
-    if args.command == "analyze":
-        if not is_git_repository(args.repository):
-            print(
-                f"Error: '{args.repository}' is not a Git repository."
-            )
-            return
+    if args.command != "analyze":
+        parser.print_help()
+        return
 
-        try:
-            branch = get_current_branch(args.repository)
-            commit_count = get_commit_count(args.repository)
-            first_commit = get_first_commit(args.repository)
-            latest_commit = get_latest_commit(args.repository)
+    if not is_git_repository(args.repository):
+        print(
+            f"Error: '{args.repository}' is not a Git repository."
+        )
+        return
 
-            print()
-            print("RepoPulse")
-            print("─────────────────────────────")
-            print(f"Repository:    {args.repository}")
-            print(f"Branch:        {branch}")
-            print(f"Total Commits: {commit_count}")
-            print(f"First Commit:  {first_commit}")
-            print(f"Latest Commit: {latest_commit}")
-            print()
+    try:
+        branch = get_current_branch(args.repository)
+        commit_count = get_commit_count(args.repository)
+        first_commit = get_first_commit(args.repository)
+        latest_commit = get_latest_commit(args.repository)
 
-        except RuntimeError as error:
-            print(f"Error: {error}")
+        print()
+        print("RepoPulse")
+        print("────────────────────────────────────")
+        print(f"Repository:    {args.repository}")
+        print(f"Branch:        {branch}")
+        print(f"Total Commits: {commit_count}")
+
+        print()
+        print("First Commit")
+        print("────────────────────────────────────")
+        print(f"Hash:    {first_commit.hash}")
+        print(f"Author:  {first_commit.author}")
+        print(f"Date:    {first_commit.date}")
+        print(f"Message: {first_commit.message}")
+
+        print()
+        print("Latest Commit")
+        print("────────────────────────────────────")
+        print(f"Hash:    {latest_commit.hash}")
+        print(f"Author:  {latest_commit.author}")
+        print(f"Date:    {latest_commit.date}")
+        print(f"Message: {latest_commit.message}")
+        print()
+
+    except RuntimeError as error:
+        print(f"Error: {error}")
