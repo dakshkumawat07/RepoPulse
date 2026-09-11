@@ -2,6 +2,7 @@ import argparse
 
 from .analyzer import (
     get_commit_count,
+    get_commit_history,
     get_current_branch,
     get_first_commit,
     get_latest_commit,
@@ -51,6 +52,7 @@ def main() -> None:
         commit_count = get_commit_count(args.repository)
         first_commit = get_first_commit(args.repository)
         latest_commit = get_latest_commit(args.repository)
+        commit_history = get_commit_history(args.repository, limit=5)
 
         print()
         print("RepoPulse")
@@ -74,6 +76,14 @@ def main() -> None:
         print(f"Author:  {latest_commit.author}")
         print(f"Date:    {latest_commit.date}")
         print(f"Message: {latest_commit.message}")
+
+        print()
+        print("Recent Activity")
+        print("────────────────────────────────────")
+
+        for commit in commit_history:
+            print(f"{commit.date} | {commit.author} | {commit.message}")
+
         print()
 
     except RuntimeError as error:

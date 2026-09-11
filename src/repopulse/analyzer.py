@@ -130,3 +130,42 @@ def get_first_commit(repository_path: str) -> CommitInfo:
 def get_latest_commit(repository_path: str) -> CommitInfo:
     """Return information about the latest commit."""
     return get_commit(repository_path, "HEAD")
+
+
+def get_commit_history(repository_path: str, limit: int = 10) -> list[CommitInfo]:
+    """
+    Return the most recent commits from the repository.
+
+    Args:
+        repository_path: Path to the Git repository.
+        limit: Maximum number of commits to return.
+
+    Returns:
+        A list of CommitInfo objects, newest commit first.
+    """
+    output = run_git_command(
+        repository_path,
+        "log",
+        f"-{limit}",
+        "--format=%H%x1f%an%x1f%ad%x1f%s",
+        "--date=iso",
+    )
+
+    if not output:
+        return []
+
+    commits = []
+
+    for line in output.splitlines():
+        commit_hash, author, date, message = line.split("\x1f")
+
+        commits.append(
+            CommitInfo(
+                hash=commit_hash,
+                author=author,
+                date=date,
+                message=message,
+            )
+        )
+
+    return commits
