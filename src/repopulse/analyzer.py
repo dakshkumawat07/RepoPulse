@@ -1,4 +1,6 @@
+from collections import Counter
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 import subprocess
 
@@ -169,3 +171,26 @@ def get_commit_history(repository_path: str, limit: int = 10) -> list[CommitInfo
         )
 
     return commits
+
+def get_commit_activity(repository_path: str) -> dict[str, int]:
+    """
+    Return the number of commits made on each date.
+
+    Args:
+        repository_path: Path to the Git repository.
+
+    Returns:
+        A dictionary mapping dates to commit counts.
+    """
+    commits = get_commit_history(
+        repository_path,
+        limit=1000,
+    )
+
+    activity = Counter()
+
+    for commit in commits:
+        commit_date = datetime.fromisoformat(commit.date).date()
+        activity[commit_date.isoformat()] += 1
+
+    return dict(sorted(activity.items(), reverse=True))

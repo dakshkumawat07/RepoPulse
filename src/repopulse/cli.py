@@ -1,6 +1,7 @@
 import argparse
 
 from .analyzer import (
+    get_commit_activity,
     get_commit_count,
     get_commit_history,
     get_current_branch,
@@ -53,6 +54,7 @@ def main() -> None:
         first_commit = get_first_commit(args.repository)
         latest_commit = get_latest_commit(args.repository)
         commit_history = get_commit_history(args.repository, limit=5)
+        commit_activity = get_commit_activity(args.repository)
 
         print()
         print("RepoPulse")
@@ -86,5 +88,15 @@ def main() -> None:
 
         print()
 
+
+        print("Commit Activity")
+        print("────────────────────────────────────")
+
+        for date, count in commit_activity.items():
+            print(f"{date} | {count} commit(s)")
+
+        print() 
+  
     except RuntimeError as error:
         print(f"Error: {error}")
+ 

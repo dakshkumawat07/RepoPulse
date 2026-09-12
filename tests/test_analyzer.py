@@ -1,5 +1,14 @@
 from src.repopulse.analyzer import (
     get_commit_count,
+    get_commit_history,
+    get_latest_commit,
+    is_git_repository,
+)
+
+from src.repopulse.analyzer import (
+    get_commit_activity,
+    get_commit_count,
+    get_commit_history,
     get_latest_commit,
     is_git_repository,
 )
@@ -26,3 +35,23 @@ def test_latest_commit_has_metadata():
     assert commit.author
     assert commit.date
     assert commit.message
+
+def test_commit_history_returns_recent_commits():
+    commits = get_commit_history(".", limit=3)
+
+    assert len(commits) <= 3
+
+    for commit in commits:
+        assert len(commit.hash) == 40
+        assert commit.author
+        assert commit.date
+        assert commit.message
+
+def test_commit_activity_contains_valid_dates():
+    activity = get_commit_activity(".")
+
+    assert activity
+
+    for date, count in activity.items():
+        assert len(date) == 10
+        assert count > 0
