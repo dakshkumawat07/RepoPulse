@@ -1,18 +1,11 @@
 from src.repopulse.analyzer import (
-    get_commit_count,
-    get_commit_history,
-    get_latest_commit,
-    is_git_repository,
-)
-
-from src.repopulse.analyzer import (
     get_commit_activity,
     get_commit_count,
     get_commit_history,
+    get_contributor_activity,
     get_latest_commit,
     is_git_repository,
 )
-
 
 def test_current_directory_is_git_repository():
     assert is_git_repository(".") is True
@@ -54,4 +47,13 @@ def test_commit_activity_contains_valid_dates():
 
     for date, count in activity.items():
         assert len(date) == 10
+        assert count > 0
+
+def test_contributor_activity_contains_valid_counts():
+    contributors = get_contributor_activity(".")
+
+    assert contributors
+
+    for author, count in contributors.items():
+        assert author
         assert count > 0

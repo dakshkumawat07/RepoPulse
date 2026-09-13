@@ -8,6 +8,7 @@ from .analyzer import (
     get_first_commit,
     get_latest_commit,
     is_git_repository,
+    get_contributor_activity,
 )
 
 
@@ -55,6 +56,7 @@ def main() -> None:
         latest_commit = get_latest_commit(args.repository)
         commit_history = get_commit_history(args.repository, limit=5)
         commit_activity = get_commit_activity(args.repository)
+        contributor_activity = get_contributor_activity(args.repository)
 
         print()
         print("RepoPulse")
@@ -96,6 +98,14 @@ def main() -> None:
             print(f"{date} | {count} commit(s)")
 
         print() 
+
+        print("Contributor Activity")
+        print("────────────────────────────────────")
+
+        for author, count in contributor_activity.items():
+            print(f"{author} | {count} commit(s)")
+
+        print()
   
     except RuntimeError as error:
         print(f"Error: {error}")
