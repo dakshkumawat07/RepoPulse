@@ -224,3 +224,37 @@ def get_contributor_activity(repository_path: str) -> dict[str, int]:
             reverse=True,
         )
     )
+
+
+def get_file_change_frequency(repository_path: str) -> dict[str, int]:
+    """
+    Return how many commits have changed each file.
+
+    Args:
+        repository_path: Path to the Git repository.
+
+    Returns:
+        A dictionary mapping file paths to the number of commits
+        that changed each file.
+    """
+    output = run_git_command(
+        repository_path,
+        "log",
+        "--format=",
+        "--name-only",
+    )
+
+    file_changes = Counter()
+
+    for line in output.splitlines():
+        file_path = line.strip()
+
+        if file_path:
+            file_changes[file_path] += 1
+
+    return dict(
+        sorted(
+            file_changes.items(),
+            key=lambda item: (-item[1], item[0]),
+        )
+    )

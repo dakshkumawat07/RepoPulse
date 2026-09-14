@@ -9,6 +9,7 @@ from .analyzer import (
     get_latest_commit,
     is_git_repository,
     get_contributor_activity,
+    get_file_change_frequency,
 )
 
 
@@ -57,6 +58,7 @@ def main() -> None:
         commit_history = get_commit_history(args.repository, limit=5)
         commit_activity = get_commit_activity(args.repository)
         contributor_activity = get_contributor_activity(args.repository)
+        file_changes = get_file_change_frequency(args.repository)
 
         print()
         print("RepoPulse")
@@ -98,6 +100,14 @@ def main() -> None:
             print(f"{date} | {count} commit(s)")
 
         print() 
+
+        print("File Hotspots")
+        print("────────────────────────────────────")
+
+        for file_path, count in list(file_changes.items())[:10]:
+            print(f"{file_path} | {count} change(s)")
+
+        print()
 
         print("Contributor Activity")
         print("────────────────────────────────────")
