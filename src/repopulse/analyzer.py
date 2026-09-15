@@ -258,3 +258,45 @@ def get_file_change_frequency(repository_path: str) -> dict[str, int]:
             key=lambda item: (-item[1], item[0]),
         )
     )
+
+
+def get_code_churn(repository_path: str) -> dict[str, dict[str, int]]:
+    output = run_git_command(
+        repository_path,
+        "log",
+        "--numstat",
+        "--format=",
+    )
+
+    churn = {}
+
+    for line in output.splitlines():
+        parts = line.split("\t")
+
+        if len(parts) != 3:
+            continue
+
+        additions, deletions, file_path = parts
+
+        # Git uses "-" for binary files.
+        if not additions.isdigit() or not deletions.isdigit():
+            continue
+
+        if file_path not in churn:
+            churn[file_path] = {
+                "additions": 0,
+                "deletions": 0,
+            }
+
+        churn[file_path]["additions"] += int(additions)
+        churn[file_path]["deletions"] += int(deletions)
+
+    return dict(
+        sorted(
+            churn.items(),
+            key=lambda item: (
+                -(item[1]["additions"] + item[1]["deletions"]),
+                item[0],
+            ),
+        )
+    )

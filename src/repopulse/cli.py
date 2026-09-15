@@ -10,6 +10,7 @@ from .analyzer import (
     is_git_repository,
     get_contributor_activity,
     get_file_change_frequency,
+    get_code_churn,
 )
 
 
@@ -106,6 +107,18 @@ def main() -> None:
 
         for file_path, count in list(file_changes.items())[:10]:
             print(f"{file_path} | {count} change(s)")
+
+        print()
+        print("Code Churn")
+        print("────────────────────────────────────")
+
+        churn = get_code_churn(args.repository)
+
+        for file_path, changes in list(churn.items())[:10]:
+            print(
+                f"{file_path} | "
+                f"+{changes['additions']} / -{changes['deletions']}"
+            )
 
         print()
 
