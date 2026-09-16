@@ -11,6 +11,7 @@ from .analyzer import (
     get_contributor_activity,
     get_file_change_frequency,
     get_code_churn,
+    get_change_hotspots,
 )
 
 
@@ -60,6 +61,7 @@ def main() -> None:
         commit_activity = get_commit_activity(args.repository)
         contributor_activity = get_contributor_activity(args.repository)
         file_changes = get_file_change_frequency(args.repository)
+        change_hotspots = get_change_hotspots(args.repository)
 
         print()
         print("RepoPulse")
@@ -118,6 +120,18 @@ def main() -> None:
             print(
                 f"{file_path} | "
                 f"+{changes['additions']} / -{changes['deletions']}"
+            )
+
+        print()
+        print("Change Hotspots")
+        print("────────────────────────────────────")
+
+        for hotspot in change_hotspots[:10]:
+            print(
+                f"{hotspot['file']} | "
+                f"{hotspot['changes']} change(s) | "
+                f"+{hotspot['additions']} / -{hotspot['deletions']} | "
+                f"{hotspot['churn']} churn"
             )
 
         print()

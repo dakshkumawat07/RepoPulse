@@ -300,3 +300,32 @@ def get_code_churn(repository_path: str) -> dict[str, dict[str, int]]:
             ),
         )
     )
+
+
+def get_change_hotspots(repository_path: str) -> list[dict[str, int | str]]:
+    file_changes = get_file_change_frequency(repository_path)
+    code_churn = get_code_churn(repository_path)
+
+    hotspots = []
+
+    for file_path, change_count in file_changes.items():
+        if file_path not in code_churn:
+            continue
+
+        additions = code_churn[file_path]["additions"]
+        deletions = code_churn[file_path]["deletions"]
+
+        hotspots.append(
+            {
+                "file": file_path,
+                "changes": change_count,
+                "additions": additions,
+                "deletions": deletions,
+                "churn": additions + deletions,
+            }
+        )
+
+    return sorted(
+        hotspots,
+        key=lambda item: (-item["changes"], -item["churn"], item["file"]),
+    )

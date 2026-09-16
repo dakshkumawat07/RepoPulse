@@ -2,9 +2,10 @@ from src.repopulse.analyzer import (
     get_commit_activity,
     get_commit_count,
     get_commit_history,
-    get_contributor_activity,
+    get_file_change_frequency,
     get_latest_commit,
     is_git_repository,
+    get_change_hotspots,
 )
 
 def test_current_directory_is_git_repository():
@@ -49,11 +50,34 @@ def test_commit_activity_contains_valid_dates():
         assert len(date) == 10
         assert count > 0
 
-def test_contributor_activity_contains_valid_counts():
-    contributors = get_contributor_activity(".")
 
-    assert contributors
 
-    for author, count in contributors.items():
-        assert author
+def test_file_change_frequency_contains_valid_counts():
+    file_changes = get_file_change_frequency(".")
+
+    assert file_changes
+
+    for file_path, count in file_changes.items():
+        assert file_path
         assert count > 0
+
+def test_change_hotspots_contain_expected_fields():
+    hotspots = get_change_hotspots(".")
+
+    assert hotspots
+
+    first_hotspot = hotspots[0]
+
+    assert "file" in first_hotspot
+    assert "changes" in first_hotspot
+    assert "additions" in first_hotspot
+    assert "deletions" in first_hotspot
+    assert "churn" in first_hotspot
+
+    assert first_hotspot["changes"] > 0
+    assert first_hotspot["additions"] >= 0
+    assert first_hotspot["deletions"] >= 0
+    assert first_hotspot["churn"] == (
+        first_hotspot["additions"] + first_hotspot["deletions"]
+    )
+
