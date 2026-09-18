@@ -4,7 +4,7 @@
 
 RepoPulse is a Python-based developer tool designed to analyze Git repositories and provide a clear, evidence-based view of how a codebase evolves.
 
-Instead of simply displaying commit counts or lines of code, RepoPulse studies development patterns such as **commit activity, code churn, file change frequency, repository hotspots, contributor patterns, and engineering health indicators**.
+Instead of simply displaying commit counts, RepoPulse currently analyzes development patterns such as **commit activity, contributor activity, file change frequency, code churn, and change hotspots**.
 
 The project is being built incrementally with a strong focus on **explainability, clean architecture, testing, reproducibility, and real-world software engineering practices**.
 
@@ -12,12 +12,12 @@ The project is being built incrementally with a strong focus on **explainability
 
 ## 📌 Project Status
 
-**Current Version:** `v0.1.0`  
-**Status:** 🚧 Early Development
+**Current Milestone:** `v0.3.0-dev`  
+**Status:** 🚧 Active Development
 
-RepoPulse is currently in the foundation stage.
+RepoPulse has moved beyond the initial repository-analyzer foundation and now includes several repository history and code-change analysis capabilities.
 
-The first milestone focuses on building a reliable local Git repository analyzer before introducing GitHub integration, APIs, databases, or a web dashboard.
+The current focus is strengthening the local Git analysis engine before introducing GitHub integration, APIs, databases, or a web dashboard.
 
 ---
 
@@ -25,14 +25,14 @@ The first milestone focuses on building a reliable local Git repository analyzer
 
 Git repositories contain a large amount of information about how software is developed, but much of that information is difficult to interpret quickly.
 
-Developers can see commits, changed files, contributors, branches, and lines added or removed. However, raw Git data does not automatically answer useful engineering questions such as:
+Developers can see commits, changed files, contributors, branches, and lines added or removed. However, raw Git data does not automatically provide a convenient overview of questions such as:
 
 - Which files change most frequently?
-- Where is development concentrated?
-- Which areas have high code churn?
-- Are commits becoming unusually large?
+- Where is development activity concentrated?
+- Which files have high code churn?
 - How has development activity changed over time?
-- Which parts of the repository deserve closer attention?
+- Which contributors are active in the repository?
+- Which files have experienced the most changes?
 
 RepoPulse aims to transform raw repository history into **structured, measurable, and explainable engineering insights**.
 
@@ -42,21 +42,30 @@ RepoPulse aims to transform raw repository history into **structured, measurable
 
 The long-term vision of RepoPulse is to become a lightweight engineering intelligence platform for Git repositories.
 
-A future analysis could look like:
+A future version may provide higher-level indicators such as:
 
-    Repository Health
-    ────────────────────────────
+```text
+Repository Health
+────────────────────────────
 
-    Code Stability       72 / 100
-    Commit Discipline    70 / 100
-    Documentation        81 / 100
-    Contributor Spread   63 / 100
+Code Stability
+Commit Activity
+Documentation
+Contributor Distribution
+Change Concentration
 
-    Overall Health       69 / 100
+Engineering Insights
+────────────────────────────
+
+Evidence
+Calculation
+Interpretation
+Limitations
+```
 
 RepoPulse will not simply produce unexplained numbers.
 
-Every important metric should provide:
+Every important metric should eventually provide:
 
 - The underlying evidence
 - The calculation used
@@ -64,132 +73,179 @@ Every important metric should provide:
 - Appropriate interpretation
 - Known limitations
 
-Example:
-
-    ⚠ High Code Churn
-
-    authentication.py was modified frequently during
-    recent development.
-
-    Possible interpretation:
-    The module may be undergoing active development,
-    frequent refactoring, or instability.
-
-    Recommendation:
-    Review recent changes and relevant test coverage.
-
-> **Important:** High activity or high churn does not automatically mean poor engineering. RepoPulse will distinguish measurable repository evidence from interpretation.
+> **Important:** High activity or high churn does not automatically mean poor engineering. RepoPulse aims to distinguish measurable repository evidence from interpretation.
 
 ---
 
-## ✨ Features
+## ✨ Current Capabilities
 
-### 🔍 Repository Analysis
+### 1. 🔍 Repository Detection
 
-- [ ] Analyze local Git repositories
-- [ ] Detect repository metadata
-- [ ] Analyze commit history
-- [ ] Analyze branches
-- [ ] Analyze contributors
-- [ ] Analyze file modification history
+RepoPulse checks whether the provided path is a local Git repository before performing analysis.
 
-### 📊 Engineering Metrics
+### 2. 🌿 Branch Analysis
 
-- [ ] Commit frequency
-- [ ] Commit size analysis
-- [ ] Files changed per commit
-- [ ] Lines added and removed
-- [ ] Code churn
-- [ ] File change frequency
-- [ ] Repository hotspots
-- [ ] Development concentration
-- [ ] Historical development trends
+Displays the current Git branch of the repository.
 
-### 🧠 Explainable Insights
+### 3. 📊 Commit Count
 
-- [ ] Explain metric calculations
-- [ ] Identify unusual repository patterns
-- [ ] Provide evidence behind insights
-- [ ] Separate measurements from interpretations
-- [ ] Document assumptions and limitations
-- [ ] Avoid misleading engineering conclusions
+Calculates the total number of commits in the repository.
 
-### 🌐 GitHub Integration
+### 4. 🧾 Commit Metadata
 
-- [ ] Analyze public GitHub repositories
-- [ ] GitHub API integration
-- [ ] Repository URL analysis
-- [ ] Repository comparison
-- [ ] Pull request analysis
-- [ ] Issue activity analysis
+Displays information about:
 
-### ⚡ Backend
+- Commit hash
+- Author
+- Date
+- Commit message
 
-- [ ] FastAPI REST API
-- [ ] Repository analysis endpoints
-- [ ] Analysis result storage
-- [ ] Background analysis jobs
-- [ ] Input validation
-- [ ] Structured error handling
+RepoPulse currently reports both the first and latest commits.
 
-### 📈 Dashboard
+### 5. 📜 Commit History
 
-- [ ] Repository overview
-- [ ] Engineering health dashboard
-- [ ] Commit activity visualization
-- [ ] Code hotspot visualization
-- [ ] Contributor analytics
-- [ ] Historical trends
-- [ ] Exportable reports
+Displays recent commits from the repository, including:
 
-### 🧪 Engineering Quality
+- Commit date
+- Author
+- Commit message
 
-- [ ] Automated unit tests
-- [ ] Integration tests
-- [ ] Logging
-- [ ] Error handling
-- [ ] Configuration management
-- [ ] CI/CD pipeline
-- [ ] Docker support
+### 6. 📅 Commit Activity
+
+Groups commits by date to show how frequently development activity occurred.
+
+### 7. 👥 Contributor Activity
+
+Counts commits associated with each contributor.
+
+### 8. 📁 File Change Frequency
+
+Tracks how many times individual files appear in the repository's commit history.
+
+This provides a basic view of files that are changed frequently.
+
+### 9. 🔄 Code Churn
+
+Calculates the total number of lines added and deleted for files across Git history.
+
+Binary file changes that Git reports without numeric additions and deletions are skipped.
+
+### 10. 🔥 Change Hotspots
+
+Combines file change frequency and code churn into a single view.
+
+Each hotspot currently reports:
+
+- File name
+- Number of changes
+- Lines added
+- Lines deleted
+- Total churn
+
+This provides an early foundation for future repository health and engineering analysis.
 
 ---
 
-## 🛠️ Technology Stack
+## 🖥️ Example Output
 
-### Core
+The following example shows multiple current RepoPulse analysis sections together in **one continuous output block**:
 
-- **Python** — Application and analysis engine
-- **Git** — Version control and repository history
-- **GitPython** — Git repository interaction
+```text
+RepoPulse
+────────────────────────────────────
+Repository:    .
+Branch:        main
+Total Commits: 9
 
-### Backend
+First Commit
+────────────────────────────────────
+Hash:    8d5bd64c63b35c5af7fdc2dcb072bbfe02cf5e27
+Author:  Daksh Kumawat
+Date:    2026-09-05 06:43:09 -0400
+Message: chore: initialize RepoPulse project
 
-- **FastAPI** — REST API
-- **Pydantic** — Data validation
+Latest Commit
+────────────────────────────────────
+Hash:    aa88edc29579da294e55fa711d78d83e052dff1b
+Author:  Daksh Kumawat
+Date:    2026-09-15 06:14:41 -0400
+Message: feat: add code churn analysis
 
-### Database
+Recent Activity
+────────────────────────────────────
+2026-09-15 06:14:41 -0400 | Daksh Kumawat | feat: add code churn analysis
+2026-09-14 05:12:10 -0400 | Daksh Kumawat | feat: add file hotspot analysis
+2026-09-13 11:35:08 -0400 | Daksh Kumawat | feat: add contributor activity analysis
+2026-09-12 04:54:55 -0400 | Daksh Kumawat | feat: add commit activity analysis
+2026-09-11 04:54:25 -0400 | Daksh Kumawat | feat: add commit history analysis
 
-- **SQLite** — Initial local persistence
-- **PostgreSQL** — Future production database
+Commit Activity
+────────────────────────────────────
+2026-09-15 | 1 commit(s)
+2026-09-14 | 1 commit(s)
+2026-09-13 | 1 commit(s)
+2026-09-12 | 1 commit(s)
+2026-09-11 | 1 commit(s)
+2026-09-10 | 1 commit(s)
+2026-09-09 | 2 commit(s)
+2026-09-05 | 1 commit(s)
 
-### Testing
+File Hotspots
+────────────────────────────────────
+src/repopulse/analyzer.py | 7 change(s)
+src/repopulse/cli.py | 7 change(s)
+tests/test_analyzer.py | 3 change(s)
+README.md | 2 change(s)
+.gitignore | 1 change(s)
+pytest.ini | 1 change(s)
 
-- **Pytest** — Automated testing
+Code Churn
+────────────────────────────────────
+README.md | +799 / -258
+src/repopulse/analyzer.py | +313 / -11
+src/repopulse/cli.py | +160 / -25
+tests/test_analyzer.py | +67 / -8
 
-### Development & Deployment
+Change Hotspots
+────────────────────────────────────
+src/repopulse/analyzer.py | 7 change(s) | +313 / -11 | 324 churn
+src/repopulse/cli.py | 7 change(s) | +160 / -25 | 185 churn
+tests/test_analyzer.py | 3 change(s) | +67 / -8 | 75 churn
+README.md | 2 change(s) | +799 / -258 | 1057 churn
 
-- **Git**
-- **GitHub**
-- **Linux**
-- **Docker**
-- **GitHub Actions**
+Contributor Activity
+────────────────────────────────────
+Daksh Kumawat | 9 commit(s)
+```
 
-### Future Frontend
+---
 
-- React / Next.js
-- Data visualization libraries
+## ⚙️ How It Works
 
-> Technologies will be introduced only when they become necessary for the current milestone.
+RepoPulse currently follows a simple analysis pipeline:
+
+```text
+Git Repository
+      │
+      ▼
+Git History
+      │
+      ▼
+Repository Analyzer
+      │
+      ├── Commit Metadata
+      ├── Commit History
+      ├── Commit Activity
+      ├── Contributor Activity
+      ├── File Change Frequency
+      ├── Code Churn
+      └── Change Hotspots
+      │
+      ▼
+CLI Report
+```
+
+The current implementation uses Git as the source of repository history and calculates metrics from that history.
 
 ---
 
@@ -213,7 +269,7 @@ Given the same repository state and analysis configuration, RepoPulse should pro
 
 ### 5. Incremental Development
 
-Features will be introduced through controlled versions instead of building the entire application at once.
+Features are introduced through controlled milestones instead of building the entire application at once.
 
 ### 6. Testability
 
@@ -221,11 +277,50 @@ Important analysis logic should be independently testable.
 
 ### 7. Professional Git Workflow
 
-Development will use meaningful commits, versioned milestones, branches when appropriate, and documented changes.
+Development uses meaningful commits, versioned milestones, testing, documentation, and a clean Git/GitHub workflow.
 
 ### 8. Honest Metrics
 
 A metric should never claim more than the underlying repository evidence can support.
+
+---
+
+## 🛠️ Technology Stack
+
+### Core
+
+- **Python 3** — Application and analysis engine
+- **Git** — Version control and repository history
+- **Python Standard Library** — Core implementation
+- **subprocess** — Git command execution
+- **dataclasses** — Structured commit information
+
+### Testing
+
+- **Pytest** — Automated testing
+
+### Development
+
+- **Git**
+- **GitHub**
+- **Linux**
+- **Python Virtual Environment**
+
+### Planned Technologies
+
+Future versions may introduce technologies such as:
+
+- FastAPI
+- Pydantic
+- SQLite
+- PostgreSQL
+- GitHub API
+- React / Next.js
+- Data visualization libraries
+- Docker
+- GitHub Actions
+
+> Technologies will be introduced only when they become necessary for the current milestone.
 
 ---
 
@@ -236,24 +331,24 @@ A metric should never claim more than the underlying repository evidence can sup
 - Functions
 - Modules
 - Classes
+- Dataclasses
 - Type hints
 - Exception handling
-- File handling
 - Data structures
+- `subprocess`
 - Virtual environments
-- Package management
 - CLI development
 
-### Git & GitHub
+### Git & Repository Analysis
 
 - Git repositories
 - Commit history
 - Branches
-- Diffs
+- Commit metadata
 - File changes
-- GitPython
-- GitHub API
-- Repository analysis
+- Lines added and removed
+- Code churn
+- Repository history analysis
 
 ### Software Engineering
 
@@ -261,29 +356,22 @@ A metric should never claim more than the underlying repository evidence can sup
 - Separation of concerns
 - Modular design
 - Error handling
-- Logging
-- Testing
-- API design
-- Configuration management
+- Automated testing
+- CLI application design
 - Documentation
+- Incremental development
+- Professional Git workflow
 
 ### Data & Analytics
 
 - Data collection
 - Data transformation
-- Metric calculation
 - Aggregation
-- Trend analysis
-- Statistical reasoning
-- Explainable scoring
-
-### DevOps
-
-- Docker
-- CI/CD
-- GitHub Actions
-- Linux development
-- Environment management
+- Metric calculation
+- Activity analysis
+- Change frequency
+- Code churn
+- Explainable engineering metrics
 
 ---
 
@@ -291,9 +379,9 @@ A metric should never claim more than the underlying repository evidence can sup
 
 | Version | Milestone | Status |
 |---|---|---|
-| v0.1.0 | Project foundation & local repository analyzer | 🔄 In Progress |
-| v0.2.0 | Commit intelligence | ⏳ Planned |
-| v0.3.0 | Code hotspot analysis | ⏳ Planned |
+| v0.1.0 | Project foundation & local repository analyzer | ✅ Completed |
+| v0.2.0 | Commit intelligence | ✅ Completed |
+| v0.3.0 | Code change and hotspot analysis | 🔄 In Development |
 | v0.4.0 | Engineering health model | ⏳ Planned |
 | v0.5.0 | GitHub integration | ⏳ Planned |
 | v0.6.0 | REST API | ⏳ Planned |
@@ -304,37 +392,59 @@ A metric should never claim more than the underlying repository evidence can sup
 
 ## 🗺️ Development Roadmap
 
-### Phase 1 — Repository Analyzer
+### Phase 1 — Repository Analyzer ✅
 
 Build a command-line tool capable of analyzing a local Git repository.
 
-Expected usage:
+Implemented:
 
-    repopulse analyze .
+- Repository detection
+- Current branch
+- Commit count
+- First commit
+- Latest commit
+- Commit metadata
+- Initial CLI
 
-Initial output will provide basic repository information and development statistics.
+---
 
-### Phase 2 — Commit Intelligence
+### Phase 2 — Commit Intelligence ✅
 
-Analyze:
+Analyze repository development activity.
 
-- Commit frequency
-- Commit size
-- Files changed
-- Lines added
-- Lines removed
-- Development activity
-- Commit patterns
+Implemented:
 
-### Phase 3 — Code Hotspots
+- Recent commit history
+- Commit activity by date
+- Contributor activity
+- Commit metadata
 
-Identify files and areas with unusually high development activity using measurable repository history.
+---
 
-### Phase 4 — Engineering Health
+### Phase 3 — Code Change Analysis 🔄
+
+Analyze how files change throughout repository history.
+
+Implemented:
+
+- File change frequency
+- Code churn
+- Change hotspots
+
+Planned improvements:
+
+- Better edge-case handling
+- Additional tests
+- More robust analysis
+- Cleaner analysis abstractions
+
+---
+
+### Phase 4 — Engineering Health Model 📋
 
 Develop an explainable engineering-health model based on multiple repository signals.
 
-The model will document:
+The model should clearly document:
 
 - Inputs
 - Calculations
@@ -342,34 +452,64 @@ The model will document:
 - Interpretation
 - Limitations
 
-### Phase 5 — GitHub Integration
+---
 
-Allow RepoPulse to analyze repositories using GitHub URLs and APIs.
+### Phase 5 — GitHub Integration 📋
 
-Example:
+Allow RepoPulse to analyze repositories using GitHub repositories and APIs.
 
-    repopulse analyze https://github.com/user/repository
+Potential capabilities:
 
-### Phase 6 — REST API
+- GitHub repository analysis
+- Repository metadata
+- Contributor information
+- Pull request analysis
+- Issue activity analysis
+
+---
+
+### Phase 6 — REST API 📋
 
 Introduce a FastAPI backend for programmatic repository analysis.
 
-### Phase 7 — Dashboard
+Potential capabilities:
 
-Build a professional web interface for exploring repository analytics and historical trends.
+- Analysis endpoints
+- Structured JSON responses
+- Input validation
+- Error handling
+- Analysis services
 
-### Phase 8 — v1.0 Release
+---
 
-Release a polished version containing:
+### Phase 7 — Dashboard 📋
+
+Build a professional web interface for exploring repository analytics.
+
+Potential capabilities:
+
+- Repository overview
+- Commit activity visualization
+- Contributor analytics
+- File hotspot visualization
+- Code churn visualization
+- Historical trends
+- Exportable reports
+
+---
+
+### Phase 8 — v1.0 Release 🎯
+
+The long-term goal is a polished release containing:
 
 - CLI
-- API
-- Dashboard
+- Repository analysis engine
 - GitHub integration
+- REST API
+- Dashboard
 - Automated tests
 - Documentation
-- Docker support
-- CI/CD
+- Deployment support
 
 ---
 
@@ -377,46 +517,132 @@ Release a polished version containing:
 
 Current structure:
 
-    RepoPulse/
-    ├── src/
-    ├── tests/
-    ├── .gitignore
-    └── README.md
+```text
+RepoPulse/
+├── src/
+│   └── repopulse/
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── analyzer.py
+│       └── cli.py
+├── tests/
+│   └── test_analyzer.py
+├── .gitignore
+├── pytest.ini
+└── README.md
+```
 
-The structure will evolve as the application architecture becomes more sophisticated.
+### Important Files
+
+**`src/repopulse/analyzer.py`**
+
+Contains the core Git repository analysis logic.
+
+**`src/repopulse/cli.py`**
+
+Handles command-line arguments and displays analysis results.
+
+**`src/repopulse/__main__.py`**
+
+Allows RepoPulse to be executed using Python's module syntax.
+
+**`tests/test_analyzer.py`**
+
+Contains automated tests for repository analysis functionality.
+
+**`pytest.ini`**
+
+Contains the current pytest configuration.
 
 ---
 
 ## 🚀 How to Use
 
-> RepoPulse is currently under development. Usage instructions will be updated as executable features are introduced.
+### 1. Clone the Repository
 
-Future CLI usage:
+```bash
+git clone https://github.com/dakshkumawat07/RepoPulse.git
+cd RepoPulse
+```
 
-    repopulse analyze <repository>
+### 2. Create a Virtual Environment
 
-Example:
+```bash
+python -m venv .venv
+```
 
-    repopulse analyze .
+### 3. Activate the Virtual Environment
+
+On Linux/macOS:
+
+```bash
+source .venv/bin/activate
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\activate
+```
+
+### 4. Install Testing Dependency
+
+```bash
+pip install pytest
+```
+
+### 5. Analyze a Repository
+
+Analyze the current repository:
+
+```bash
+python -m src.repopulse analyze .
+```
+
+Or provide another local Git repository:
+
+```bash
+python -m src.repopulse analyze /path/to/repository
+```
+
+### 6. Run Tests
+
+```bash
+pytest
+```
 
 ---
 
 ## 🧪 Testing
 
-Automated testing will be introduced alongside the analysis engine.
+RepoPulse currently uses **pytest** for automated testing.
 
-The project will eventually support:
+The current test suite covers areas including:
 
-    pytest
+- Git repository detection
+- Commit count
+- Commit metadata
+- Recent commit history
+- Commit activity
+- File change frequency
+- Change hotspot structure
 
-Tests will cover:
+Current development state:
 
-- Repository analysis
-- Metric calculations
-- Edge cases
-- Invalid repositories
-- Error handling
-- API behavior
+```text
+8 tests passed
+```
+
+The test suite will continue to grow as new analysis capabilities are introduced.
+
+Future testing improvements may include:
+
+- Temporary test repositories
+- More edge cases
+- Invalid repository handling
+- Multiple repository scenarios
+- Integration tests
+- API tests when the REST API is introduced
 
 ---
 
@@ -440,25 +666,29 @@ Sensitive repository contents should never be unnecessarily transmitted or store
 
 ## 🏗️ Future Architecture
 
-    User / CLI
-         │
-         ▼
-    Analysis Engine
-         │
-         ├───────────────┬───────────────┐
-         ▼               ▼               ▼
-      Git Data       Code Data       Metadata
-         │               │               │
-         └───────────────┼───────────────┘
-                         ▼
-                Metrics & Analytics
-                         │
-                         ▼
-                Explainable Insights
-                         │
-                   ┌─────┴─────┐
-                   ▼           ▼
-                REST API   Dashboard
+The long-term architecture is expected to evolve toward:
+
+```text
+User / CLI
+     │
+     ▼
+Repository Analyzer
+     │
+     ├───────────────┬───────────────┐
+     ▼               ▼               ▼
+ Git Data        Code Changes     Metadata
+     │               │               │
+     └───────────────┼───────────────┘
+                     ▼
+             Metrics & Analytics
+                     │
+                     ▼
+             Explainable Insights
+                     │
+                ┌────┴────┐
+                ▼         ▼
+            REST API   Dashboard
+```
 
 > This is a long-term architectural direction. Components will be introduced incrementally.
 
@@ -468,18 +698,21 @@ Sensitive repository contents should never be unnecessarily transmitted or store
 
 Future improvements may include:
 
+- Better handling of detached HEAD repositories
+- Support for more Git repository layouts
+- Better handling of repositories with multiple root commits
+- Configurable history limits
+- More robust test repositories
 - Repository comparison
-- Historical health trends
-- Custom analysis configuration
+- Historical development trends
+- Advanced hotspot detection
+- Configurable engineering metrics
 - Pull request analysis
 - Issue activity analysis
 - Release analysis
-- Team development analytics
-- Advanced hotspot detection
-- Configurable engineering metrics
 - Exportable reports
 - Performance optimization
-- Plugin architecture
+- GitHub integration
 
 ---
 
@@ -487,28 +720,32 @@ Future improvements may include:
 
 The primary learning goal of RepoPulse is to move beyond writing isolated Python programs and gain practical experience building a real software engineering system.
 
-By completing this project, the goal is to gain hands-on experience with:
+Through the project, I am working with:
 
 - Python application development
-- Git internals and repository analysis
+- Git and repository analysis
 - Data processing
 - Software architecture
+- CLI development
+- Automated testing
+- Linux development
+- GitHub workflows
 - REST APIs
 - Databases
-- Testing
-- Linux
 - Docker
 - CI/CD
 - GitHub APIs
 - Production-oriented development practices
 
+The project is intentionally developed feature-by-feature so that each stage can be understood, tested, and improved.
+
 ---
 
 ## 🏆 Portfolio Goal
 
-RepoPulse is intended to become a substantial portfolio project demonstrating the ability to:
+RepoPulse is intended to become a substantial Computer Science portfolio project demonstrating the ability to:
 
-> **Identify a real developer problem → design a solution → implement it incrementally → test it → document it → deploy it.**
+> **Identify a real developer problem → design a solution → implement it incrementally → test it → document it → improve it.**
 
 The project prioritizes **engineering depth, transparency, and practical usefulness** over simply increasing the number of features.
 
@@ -528,11 +765,15 @@ GitHub: [@dakshkumawat07](https://github.com/dakshkumawat07)
 
 RepoPulse started with a simple question:
 
-> **Can Git history tell us something meaningful about the engineering health of a codebase?**
+> **Can Git history tell us something meaningful about the engineering evolution of a codebase?**
 
 The long-term vision is to turn that question into a practical developer tool that makes repository evolution easier to understand.
 
-**Measure the evidence. Explain the pattern. Improve the engineering.**
+```text
+Measure the evidence.
+Explain the pattern.
+Improve the engineering.
+```
 
 ---
 
