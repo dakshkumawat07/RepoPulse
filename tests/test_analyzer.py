@@ -1,3 +1,4 @@
+import json
 import subprocess
 
 from src.repopulse.analyzer import (
@@ -16,7 +17,7 @@ def create_test_repository(tmp_path):
     repository.mkdir()
 
     subprocess.run(
-        ["git", "init", "-q", str(repository)],
+        ["git", "init", "-q", "-b", "main", str(repository)],
         check=True,
     )
 
@@ -146,3 +147,32 @@ def test_change_hotspots_contain_expected_fields(tmp_path):
     assert first_hotspot["churn"] == (
         first_hotspot["additions"] + first_hotspot["deletions"]
     )
+
+
+
+def test_cli_json_output(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "add file")
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+            "--json",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    data = json.loads(result.stdout)
+
+    assert data["repository"] == str(repository)
+    assert data["branch"] == "main"
+    assert data["total_commits"] == 1
+    assert data["latest_commit"]["message"] == "add file"
+    assert data["latest_commit"]["author"] == "Test User"

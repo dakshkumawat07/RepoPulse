@@ -1,4 +1,6 @@
 import argparse
+import json
+from dataclasses import asdict
 
 from .analyzer import (
     get_commit_activity,
@@ -34,6 +36,12 @@ def create_parser() -> argparse.ArgumentParser:
         help="Path to the Git repository.",
     )
 
+    analyze_parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Output analysis results as JSON.",
+    )
+
     return parser
 
 
@@ -62,6 +70,29 @@ def main() -> None:
         contributor_activity = get_contributor_activity(args.repository)
         file_changes = get_file_change_frequency(args.repository)
         change_hotspots = get_change_hotspots(args.repository)
+
+        code_churn = get_code_churn(args.repository)
+
+        if args.json:
+            result = {
+                "repository": args.repository,
+                "branch": branch,
+                "total_commits": commit_count,
+                "first_commit": asdict(first_commit),
+                "latest_commit": asdict(latest_commit),
+                "commit_history": [
+                    asdict(commit) for commit in commit_history
+                ],
+                "commit_activity": commit_activity,
+                "contributors": contributor_activity,
+                "file_hotspots": file_changes,
+                "code_churn": code_churn,
+                "change_hotspots": change_hotspots,
+            }
+
+            print(json.dumps(result, indent=2))
+            return
+      
 
         print()
         print("RepoPulse")
@@ -114,7 +145,7 @@ def main() -> None:
         print("Code Churn")
         print("────────────────────────────────────")
 
-        churn = get_code_churn(args.repository)
+        churn = code_churn
 
         for file_path, changes in list(churn.items())[:10]:
             print(
