@@ -2,19 +2,22 @@ import argparse
 import json
 from dataclasses import asdict
 
-from .analyzer import (
+from .commits import (
     get_commit_activity,
     get_commit_count,
     get_commit_history,
     get_current_branch,
     get_first_commit,
     get_latest_commit,
-    is_git_repository,
-    get_contributor_activity,
-    get_file_change_frequency,
-    get_code_churn,
-    get_change_hotspots,
 )
+from .contributors import get_contributor_activity
+from .git import is_git_repository
+from .hotspots import (
+    get_change_hotspots,
+    get_code_churn,
+    get_file_change_frequency,
+)
+
 
 
 def create_parser() -> argparse.ArgumentParser:

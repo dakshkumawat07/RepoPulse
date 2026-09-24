@@ -1,16 +1,17 @@
 import json
 import subprocess
 
-from src.repopulse.analyzer import (
-    get_change_hotspots,
+from src.repopulse.commits import (
     get_commit_activity,
     get_commit_count,
     get_commit_history,
-    get_file_change_frequency,
     get_latest_commit,
-    is_git_repository,
 )
-
+from src.repopulse.git import is_git_repository
+from src.repopulse.hotspots import (
+    get_change_hotspots,
+    get_file_change_frequency,
+)
 
 def create_test_repository(tmp_path):
     repository = tmp_path / "test-repo"
