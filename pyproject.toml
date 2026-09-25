@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repopulse"
+version = "0.1.0"
+description = "Explainable Git repository engineering analytics platform"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    { name = "Daksh Kumawat" }
+]
+
+[project.scripts]
+repopulse = "repopulse.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

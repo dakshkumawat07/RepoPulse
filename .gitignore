@@ -9,3 +9,4 @@ htmlcov/
 !.env.example
 .DS_Store
 .vscode/
+*.egg-info/
