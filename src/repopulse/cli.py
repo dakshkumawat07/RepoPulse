@@ -48,20 +48,20 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main() -> None:
+def main() -> int:
     """Run the RepoPulse command-line interface."""
     parser = create_parser()
     args = parser.parse_args()
 
     if args.command != "analyze":
         parser.print_help()
-        return
+        return 0
 
     if not is_git_repository(args.repository):
         print(
             f"Error: '{args.repository}' is not a Git repository."
         )
-        return
+        return 1
 
     try:
         branch = get_current_branch(args.repository)
@@ -94,7 +94,7 @@ def main() -> None:
             }
 
             print(json.dumps(result, indent=2))
-            return
+            return 0
       
 
         print()
@@ -177,6 +177,8 @@ def main() -> None:
             print(f"{author} | {count} commit(s)")
 
         print()
+
+        return 0
   
     except RuntimeError as error:
         print(f"Error: {error}")

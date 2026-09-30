@@ -177,3 +177,20 @@ def test_cli_json_output(tmp_path):
     assert data["total_commits"] == 1
     assert data["latest_commit"]["message"] == "add file"
     assert data["latest_commit"]["author"] == "Test User"
+
+
+def test_cli_returns_error_for_non_git_repository(tmp_path):
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "is not a Git repository" in result.stdout
