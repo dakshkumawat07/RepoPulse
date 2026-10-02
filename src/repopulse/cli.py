@@ -179,7 +179,7 @@ def main() -> int:
         print()
 
         return 0
-  
+
     except RuntimeError as error:
         print(f"Error: {error}")
- 
+        return 1

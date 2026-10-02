@@ -194,3 +194,24 @@ def test_cli_returns_error_for_non_git_repository(tmp_path):
 
     assert result.returncode == 1
     assert "is not a Git repository" in result.stdout
+
+
+def test_cli_returns_error_when_git_command_fails(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    (repository / ".git" / "HEAD").unlink()
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout.startswith("Error:")
