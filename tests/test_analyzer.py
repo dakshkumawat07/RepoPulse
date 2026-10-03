@@ -215,3 +215,28 @@ def test_cli_returns_error_when_git_command_fails(tmp_path):
 
     assert result.returncode == 1
     assert result.stdout.startswith("Error:")
+
+
+def test_git_worktree_is_recognized_as_repository(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "initial commit")
+
+    worktree = tmp_path / "linked-worktree"
+
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repository),
+            "worktree",
+            "add",
+            "-q",
+            "-b",
+            "test-worktree-branch",
+            str(worktree),
+        ],
+        check=True,
+    )
+
+    assert is_git_repository(str(worktree)) is True

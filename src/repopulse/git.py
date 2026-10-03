@@ -4,24 +4,38 @@ import subprocess
 
 def is_git_repository(repository_path: str) -> bool:
     """
-    Check whether the given path is a Git repository.
+    Check whether the given path is inside a Git working tree.
 
     Args:
         repository_path: Path to the directory we want to inspect.
 
     Returns:
-        True if the directory contains a .git directory,
+        True if the path is inside a Git working tree,
         otherwise False.
     """
     path = Path(repository_path)
 
-    if not path.exists():
+    if not path.exists() or not path.is_dir():
         return False
 
-    if not path.is_dir():
-        return False
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(path),
+            "rev-parse",
+            "--is-inside-work-tree",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
-    return (path / ".git").is_dir()
+    return (
+        result.returncode == 0
+        and result.stdout.strip() == "true"
+    )
+
 
 
 def run_git_command(repository_path: str, *arguments: str) -> str:
