@@ -15,9 +15,16 @@ The project is being built incrementally with a strong focus on **explainability
 **Current Milestone:** `v0.3.0-dev`  
 **Status:** 🚧 Active Development
 
-RepoPulse has moved beyond the initial repository-analyzer foundation and now includes several repository history and code-change analysis capabilities.
+RepoPulse has moved beyond the initial repository-analyzer foundation and now includes several repository-history and code-change analysis capabilities.
 
-The current focus is strengthening the local Git analysis engine before introducing GitHub integration, APIs, databases, or a web dashboard.
+The current focus is completing and strengthening the local Git analysis engine before introducing GitHub integration, APIs, databases, or a web dashboard.
+
+Recent improvements include:
+
+- Proper CLI exit codes for invalid repositories and Git-command failures
+- Support for Git worktrees
+- Installable CLI packaging through `pyproject.toml`
+- Expanded automated test coverage
 
 ---
 
@@ -83,6 +90,8 @@ Every important metric should eventually provide:
 
 RepoPulse checks whether the provided path is a local Git repository before performing analysis.
 
+It supports both normal Git repositories and Git worktrees.
+
 ### 2. 🌿 Branch Analysis
 
 Displays the current Git branch of the repository.
@@ -142,80 +151,82 @@ Each hotspot currently reports:
 - Lines deleted
 - Total churn
 
-This provides an early foundation for future repository health and engineering analysis.
+This provides an early foundation for future repository-health and engineering analysis.
+
+### 11. 🖥️ Command-Line Interface
+
+RepoPulse provides an installable CLI command:
+
+```bash
+repopulse analyze .
+```
+
+It also supports JSON output:
+
+```bash
+repopulse analyze . --json
+```
+
+### 12. ✅ CLI Exit Codes
+
+RepoPulse returns useful exit codes for scripts and future CI workflows:
+
+| Exit Code | Meaning |
+|---|---|
+| `0` | Analysis completed successfully |
+| `1` | Invalid repository or Git-command failure |
+| `2` | Invalid command-line usage |
 
 ---
 
 ## 🖥️ Example Output
 
-The following example shows multiple current RepoPulse analysis sections together in **one continuous output block**:
+The following example shows multiple current RepoPulse analysis sections together in one continuous output block:
 
 ```text
 RepoPulse
 ────────────────────────────────────
 Repository:    .
 Branch:        main
-Total Commits: 9
+Total Commits: 12
 
 First Commit
 ────────────────────────────────────
-Hash:    8d5bd64c63b35c5af7fdc2dcb072bbfe02cf5e27
-Author:  Daksh Kumawat
-Date:    2026-09-05 06:43:09 -0400
-Message: chore: initialize RepoPulse project
+Hash:    <commit-hash>
+Author:  <author>
+Date:    <date>
+Message: <first-commit-message>
 
 Latest Commit
 ────────────────────────────────────
-Hash:    aa88edc29579da294e55fa711d78d83e052dff1b
-Author:  Daksh Kumawat
-Date:    2026-09-15 06:14:41 -0400
-Message: feat: add code churn analysis
+Hash:    <commit-hash>
+Author:  <author>
+Date:    <date>
+Message: <latest-commit-message>
 
 Recent Activity
 ────────────────────────────────────
-2026-09-15 06:14:41 -0400 | Daksh Kumawat | feat: add code churn analysis
-2026-09-14 05:12:10 -0400 | Daksh Kumawat | feat: add file hotspot analysis
-2026-09-13 11:35:08 -0400 | Daksh Kumawat | feat: add contributor activity analysis
-2026-09-12 04:54:55 -0400 | Daksh Kumawat | feat: add commit activity analysis
-2026-09-11 04:54:25 -0400 | Daksh Kumawat | feat: add commit history analysis
+<date> | <author> | <commit-message>
 
 Commit Activity
 ────────────────────────────────────
-2026-09-15 | 1 commit(s)
-2026-09-14 | 1 commit(s)
-2026-09-13 | 1 commit(s)
-2026-09-12 | 1 commit(s)
-2026-09-11 | 1 commit(s)
-2026-09-10 | 1 commit(s)
-2026-09-09 | 2 commit(s)
-2026-09-05 | 1 commit(s)
+2026-10-04 | 1 commit(s)
 
 File Hotspots
 ────────────────────────────────────
-src/repopulse/analyzer.py | 7 change(s)
-src/repopulse/cli.py | 7 change(s)
-tests/test_analyzer.py | 3 change(s)
-README.md | 2 change(s)
-.gitignore | 1 change(s)
-pytest.ini | 1 change(s)
+src/repopulse/cli.py | 5 change(s)
 
 Code Churn
 ────────────────────────────────────
-README.md | +799 / -258
-src/repopulse/analyzer.py | +313 / -11
-src/repopulse/cli.py | +160 / -25
-tests/test_analyzer.py | +67 / -8
+src/repopulse/cli.py | +120 / -20
 
 Change Hotspots
 ────────────────────────────────────
-src/repopulse/analyzer.py | 7 change(s) | +313 / -11 | 324 churn
-src/repopulse/cli.py | 7 change(s) | +160 / -25 | 185 churn
-tests/test_analyzer.py | 3 change(s) | +67 / -8 | 75 churn
-README.md | 2 change(s) | +799 / -258 | 1057 churn
+src/repopulse/cli.py | 5 change(s) | +120 / -20 | 140 churn
 
 Contributor Activity
 ────────────────────────────────────
-Daksh Kumawat | 9 commit(s)
+Daksh Kumawat | 12 commit(s)
 ```
 
 ---
@@ -242,10 +253,12 @@ Repository Analyzer
       └── Change Hotspots
       │
       ▼
-CLI Report
+CLI Report or JSON Output
 ```
 
 The current implementation uses Git as the source of repository history and calculates metrics from that history.
+
+RepoPulse currently analyzes local repositories only. It does not need a GitHub token, database, API server, or web dashboard.
 
 ---
 
@@ -289,11 +302,13 @@ A metric should never claim more than the underlying repository evidence can sup
 
 ### Core
 
-- **Python 3** — Application and analysis engine
+- **Python 3.13+** — Application and analysis engine
 - **Git** — Version control and repository history
 - **Python Standard Library** — Core implementation
 - **subprocess** — Git command execution
 - **dataclasses** — Structured commit information
+- **argparse** — Command-line argument parsing
+- **json** — Structured JSON output
 
 ### Testing
 
@@ -338,10 +353,14 @@ Future versions may introduce technologies such as:
 - `subprocess`
 - Virtual environments
 - CLI development
+- JSON serialization
+- Package structure with `src/`
+- Python packaging with `pyproject.toml`
 
 ### Git & Repository Analysis
 
 - Git repositories
+- Git worktrees
 - Commit history
 - Branches
 - Commit metadata
@@ -361,6 +380,8 @@ Future versions may introduce technologies such as:
 - Documentation
 - Incremental development
 - Professional Git workflow
+- Meaningful exit codes
+- Installable Python applications
 
 ### Data & Analytics
 
@@ -379,14 +400,14 @@ Future versions may introduce technologies such as:
 
 | Version | Milestone | Status |
 |---|---|---|
-| v0.1.0 | Project foundation & local repository analyzer | ✅ Completed |
+| v0.1.0 | Project foundation and local repository analyzer | ✅ Completed |
 | v0.2.0 | Commit intelligence | ✅ Completed |
-| v0.3.0 | Code change and hotspot analysis | 🔄 In Development |
+| v0.3.0 | Code change and hotspot analysis | 🚧 In Development |
 | v0.4.0 | Engineering health model | ⏳ Planned |
 | v0.5.0 | GitHub integration | ⏳ Planned |
 | v0.6.0 | REST API | ⏳ Planned |
 | v0.7.0 | Web dashboard | ⏳ Planned |
-| v1.0.0 | Production-ready portfolio release | ⏳ Planned |
+| v1.0.0 | Production-ready portfolio release | 🎯 Planned |
 
 ---
 
@@ -421,7 +442,7 @@ Implemented:
 
 ---
 
-### Phase 3 — Code Change Analysis 🔄
+### Phase 3 — Code Change Analysis 🚧
 
 Analyze how files change throughout repository history.
 
@@ -430,13 +451,19 @@ Implemented:
 - File change frequency
 - Code churn
 - Change hotspots
+- JSON output
+- Installable CLI command
+- CLI error exit codes
+- Git worktree support
 
-Planned improvements:
+Current focus:
 
 - Better edge-case handling
 - Additional tests
 - More robust analysis
 - Cleaner analysis abstractions
+- Improved documentation
+- Packaging and release readiness
 
 ---
 
@@ -456,7 +483,7 @@ The model should clearly document:
 
 ### Phase 5 — GitHub Integration 📋
 
-Allow RepoPulse to analyze repositories using GitHub repositories and APIs.
+Allow RepoPulse to analyze GitHub repositories using GitHub APIs.
 
 Potential capabilities:
 
@@ -523,32 +550,52 @@ RepoPulse/
 │   └── repopulse/
 │       ├── __init__.py
 │       ├── __main__.py
-│       ├── analyzer.py
-│       └── cli.py
+│       ├── cli.py
+│       ├── commits.py
+│       ├── contributors.py
+│       ├── git.py
+│       └── hotspots.py
 ├── tests/
 │   └── test_analyzer.py
 ├── .gitignore
+├── pyproject.toml
 ├── pytest.ini
 └── README.md
 ```
 
 ### Important Files
 
-**`src/repopulse/analyzer.py`**
+**`src/repopulse/git.py`**
 
-Contains the core Git repository analysis logic.
+Contains Git repository detection and the shared helper used to run Git commands.
+
+**`src/repopulse/commits.py`**
+
+Contains current-branch analysis, commit counting, commit metadata, commit history, and commit activity analysis.
+
+**`src/repopulse/contributors.py`**
+
+Contains contributor activity analysis.
+
+**`src/repopulse/hotspots.py`**
+
+Contains file change frequency, code churn, and change hotspot analysis.
 
 **`src/repopulse/cli.py`**
 
-Handles command-line arguments and displays analysis results.
+Handles command-line arguments and displays analysis results in text or JSON format.
 
 **`src/repopulse/__main__.py`**
 
-Allows RepoPulse to be executed using Python's module syntax.
+Allows RepoPulse to be executed using Python module syntax.
 
 **`tests/test_analyzer.py`**
 
-Contains automated tests for repository analysis functionality.
+Contains automated tests that use isolated temporary Git repositories.
+
+**`pyproject.toml`**
+
+Contains package metadata and defines the installable `repopulse` CLI command.
 
 **`pytest.ini`**
 
@@ -557,6 +604,20 @@ Contains the current pytest configuration.
 ---
 
 ## 🚀 How to Use
+
+### Prerequisite
+
+RepoPulse requires:
+
+- Python 3.13 or later
+- Git installed and available on your system
+
+Check your versions:
+
+```bash
+python --version
+git --version
+```
 
 ### 1. Clone the Repository
 
@@ -579,68 +640,93 @@ On Linux/macOS:
 source .venv/bin/activate
 ```
 
-On Windows:
+On Windows PowerShell:
 
 ```powershell
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 ```
 
-### 4. Install Testing Dependency
+### 4. Install RepoPulse
 
 ```bash
-pip install pytest
+python -m pip install -e .
 ```
 
-### 5. Analyze a Repository
+### 5. Install the Testing Dependency
+
+```bash
+python -m pip install pytest
+```
+
+### 6. Analyze a Repository
 
 Analyze the current repository:
 
 ```bash
-python -m src.repopulse analyze .
+repopulse analyze .
 ```
 
 Or provide another local Git repository:
 
 ```bash
-python -m src.repopulse analyze /path/to/repository
+repopulse analyze /path/to/repository
 ```
 
-### 6. Run Tests
+### 7. Generate JSON Output
 
 ```bash
-pytest
+repopulse analyze . --json
+```
+
+### 8. Use Module Syntax
+
+RepoPulse can also be run through Python after installation:
+
+```bash
+python -m repopulse analyze .
+```
+
+### 9. Run Tests
+
+```bash
+pytest -q
 ```
 
 ---
 
 ## 🧪 Testing
 
-RepoPulse currently uses **pytest** for automated testing.
+RepoPulse currently uses pytest for automated testing.
 
-The current test suite covers areas including:
+The current test suite covers:
 
 - Git repository detection
+- Git worktree detection
 - Commit count
 - Commit metadata
 - Recent commit history
 - Commit activity
 - File change frequency
 - Change hotspot structure
+- JSON CLI output
+- Invalid repository CLI errors
+- Git-command failure CLI errors
 
 Current development state:
 
 ```text
-8 tests passed
+11 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.
 
 Future testing improvements may include:
 
-- Temporary test repositories
-- More edge cases
-- Invalid repository handling
+- Temporary test repositories with multiple branches
+- Empty repository handling
+- Detached HEAD handling
 - Multiple repository scenarios
+- Large repository performance tests
 - Integration tests
 - API tests when the REST API is introduced
 
@@ -659,6 +745,8 @@ The project will therefore consider:
 - Input validation
 - Temporary repository cleanup
 - Appropriate logging practices
+
+The current version analyzes local Git repositories only and does not upload repository contents to an external service.
 
 Sensitive repository contents should never be unnecessarily transmitted or stored.
 
@@ -713,6 +801,8 @@ Future improvements may include:
 - Exportable reports
 - Performance optimization
 - GitHub integration
+- GitHub Actions CI workflow
+- PyPI release support
 
 ---
 
@@ -747,7 +837,7 @@ RepoPulse is intended to become a substantial Computer Science portfolio project
 
 > **Identify a real developer problem → design a solution → implement it incrementally → test it → document it → improve it.**
 
-The project prioritizes **engineering depth, transparency, and practical usefulness** over simply increasing the number of features.
+The project prioritizes engineering depth, transparency, and practical usefulness over simply increasing the number of features.
 
 ---
 
@@ -765,7 +855,7 @@ GitHub: [@dakshkumawat07](https://github.com/dakshkumawat07)
 
 RepoPulse started with a simple question:
 
-> **Can Git history tell us something meaningful about the engineering evolution of a codebase?**
+> Can Git history tell us something meaningful about the engineering evolution of a codebase?
 
 The long-term vision is to turn that question into a practical developer tool that makes repository evolution easier to understand.
 
@@ -779,4 +869,4 @@ Improve the engineering.
 
 ## 📄 License
 
-License will be added before the first stable release.
+A license will be added before the first stable release.
