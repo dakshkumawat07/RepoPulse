@@ -1,6 +1,7 @@
 import argparse
 import json
 from dataclasses import asdict
+from . import __version__
 
 from .commits import (
     get_commit_activity,
@@ -25,6 +26,12 @@ def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="repopulse",
         description="Analyze Git repositories and generate engineering insights.",
+    )
+
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
 
     subparsers = parser.add_subparsers(dest="command")

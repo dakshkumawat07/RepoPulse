@@ -686,7 +686,12 @@ RepoPulse can also be run through Python after installation:
 python -m repopulse analyze .
 ```
 
-### 9. Run Tests
+### 9. Show the Installed Version
+
+```bash
+repopulse --version
+
+### 10. Run Tests
 
 ```bash
 pytest -q
@@ -715,7 +720,7 @@ The current test suite covers:
 Current development state:
 
 ```text
-11 passed
+12 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.

@@ -240,3 +240,19 @@ def test_git_worktree_is_recognized_as_repository(tmp_path):
     )
 
     assert is_git_repository(str(worktree)) is True
+
+def test_cli_version_output():
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "--version",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert result.stdout == "repopulse 0.1.0\n"
+    assert result.stderr == ""
