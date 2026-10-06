@@ -256,3 +256,22 @@ def test_cli_version_output():
     assert result.returncode == 0
     assert result.stdout == "repopulse 0.1.0\n"
     assert result.stderr == ""
+
+
+def test_cli_returns_error_for_empty_repository(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "has no commits" in result.stdout

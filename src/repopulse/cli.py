@@ -12,7 +12,7 @@ from .commits import (
     get_latest_commit,
 )
 from .contributors import get_contributor_activity
-from .git import is_git_repository
+from .git import has_commits, is_git_repository
 from .hotspots import (
     get_change_hotspots,
     get_code_churn,
@@ -68,6 +68,10 @@ def main() -> int:
         print(
             f"Error: '{args.repository}' is not a Git repository."
         )
+        return 1
+
+    if not has_commits(args.repository):
+        print(f"Error: '{args.repository}' has no commits.")
         return 1
 
     try:

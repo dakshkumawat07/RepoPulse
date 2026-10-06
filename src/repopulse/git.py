@@ -37,6 +37,33 @@ def is_git_repository(repository_path: str) -> bool:
     )
 
 
+def has_commits(repository_path: str) -> bool:
+    """
+    Check whether the given Git repository contains at least one commit.
+
+    Args:
+        repository_path: Path to the Git repository.
+
+    Returns:
+        True if the repository has at least one commit,
+        otherwise False.
+    """
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            repository_path,
+            "rev-parse",
+            "--verify",
+            "HEAD",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    return result.returncode == 0
+
 
 def run_git_command(repository_path: str, *arguments: str) -> str:
     """

@@ -716,11 +716,12 @@ The current test suite covers:
 - JSON CLI output
 - Invalid repository CLI errors
 - Git-command failure CLI errors
+- Empty repository CLI errors
 
 Current development state:
 
 ```text
-12 passed
+13 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.
