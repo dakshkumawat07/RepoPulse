@@ -96,6 +96,11 @@ It supports both normal Git repositories and Git worktrees.
 
 Displays the current Git branch of the repository.
 
+When the repository is in detached HEAD state, RepoPulse displays:
+
+```text
+(detached HEAD)
+
 ### 3. 📊 Commit Count
 
 Calculates the total number of commits in the repository.
@@ -717,11 +722,12 @@ The current test suite covers:
 - Invalid repository CLI errors
 - Git-command failure CLI errors
 - Empty repository CLI errors
+- Detached HEAD branch detection
 
 Current development state:
 
 ```text
-13 passed
+14 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.

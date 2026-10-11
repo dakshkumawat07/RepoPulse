@@ -5,6 +5,7 @@ from src.repopulse.commits import (
     get_commit_activity,
     get_commit_count,
     get_commit_history,
+    get_current_branch,
     get_latest_commit,
 )
 from src.repopulse.git import is_git_repository
@@ -275,3 +276,24 @@ def test_cli_returns_error_for_empty_repository(tmp_path):
 
     assert result.returncode == 1
     assert "has no commits" in result.stdout
+
+
+def test_current_branch_identifies_detached_head(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "initial commit")
+
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repository),
+            "checkout",
+            "--detach",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert get_current_branch(str(repository)) == "(detached HEAD)"

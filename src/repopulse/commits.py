@@ -16,12 +16,14 @@ class CommitInfo:
 
 
 def get_current_branch(repository_path: str) -> str:
-    """Return the current Git branch name."""
-    return run_git_command(
+    """Return the current Git branch name or detached HEAD state."""
+    branch = run_git_command(
         repository_path,
         "branch",
         "--show-current",
     )
+
+    return branch or "(detached HEAD)"
 
 
 def get_commit_count(repository_path: str) -> int:
