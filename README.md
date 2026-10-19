@@ -668,8 +668,9 @@ python -m pip install pytest
 Analyze the current repository:
 
 ```bash
-repopulse analyze .
+repopulse analyze
 ```
+RepoPulse analyzes the current directory by default.
 
 Or provide another local Git repository:
 
@@ -723,11 +724,12 @@ The current test suite covers:
 - Git-command failure CLI errors
 - Empty repository CLI errors
 - Detached HEAD branch detection
+- Default current-directory analysis
 
 Current development state:
 
 ```text
-14 passed
+15 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.

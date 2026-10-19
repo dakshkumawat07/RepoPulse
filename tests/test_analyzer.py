@@ -1,6 +1,8 @@
 import json
 import subprocess
 
+from src.repopulse.cli import create_parser
+
 from src.repopulse.commits import (
     get_commit_activity,
     get_commit_count,
@@ -297,3 +299,11 @@ def test_current_branch_identifies_detached_head(tmp_path):
     )
 
     assert get_current_branch(str(repository)) == "(detached HEAD)"
+
+
+def test_analyze_defaults_to_current_directory():
+    parser = create_parser()
+
+    arguments = parser.parse_args(["analyze"])
+
+    assert arguments.repository == "."

@@ -41,10 +41,14 @@ def create_parser() -> argparse.ArgumentParser:
         help="Analyze a Git repository.",
     )
 
+
     analyze_parser.add_argument(
         "repository",
-        help="Path to the Git repository.",
+        nargs="?",
+        default=".",
+        help="Path to the Git repository (default: current directory).",
     )
+
 
     analyze_parser.add_argument(
         "--json",
