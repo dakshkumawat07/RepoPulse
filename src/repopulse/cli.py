@@ -20,6 +20,23 @@ from .hotspots import (
 )
 
 
+def positive_int(value: str) -> int:
+    """Return a positive integer for command-line arguments."""
+    try:
+        number = int(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(
+            "must be a positive integer"
+        ) from error
+
+    if number < 1:
+        raise argparse.ArgumentTypeError(
+            "must be a positive integer"
+        )
+
+    return number
+
+
 
 def create_parser() -> argparse.ArgumentParser:
     """Create the RepoPulse command-line argument parser."""
@@ -56,6 +73,13 @@ def create_parser() -> argparse.ArgumentParser:
         help="Output analysis results as JSON.",
     )
 
+    analyze_parser.add_argument(
+        "--limit",
+        type=positive_int,
+        default=5,
+        help="Number of recent commits to display (default: 5).",
+    )
+
     return parser
 
 
@@ -83,7 +107,10 @@ def main() -> int:
         commit_count = get_commit_count(args.repository)
         first_commit = get_first_commit(args.repository)
         latest_commit = get_latest_commit(args.repository)
-        commit_history = get_commit_history(args.repository, limit=5)
+        commit_history = get_commit_history(
+            args.repository,
+            limit=args.limit,
+        )
         commit_activity = get_commit_activity(args.repository)
         contributor_activity = get_contributor_activity(args.repository)
         file_changes = get_file_change_frequency(args.repository)

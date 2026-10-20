@@ -623,6 +623,12 @@ Check your versions:
 python --version
 git --version
 ```
+### Limit Recent Commit Output
+
+By default, RepoPulse displays the five most recent commits.
+
+```bash
+repopulse analyze --limit 3
 
 ### 1. Clone the Repository
 
@@ -725,11 +731,12 @@ The current test suite covers:
 - Empty repository CLI errors
 - Detached HEAD branch detection
 - Default current-directory analysis
+- Configurable recent commit limits
 
 Current development state:
 
 ```text
-15 passed
+16 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.

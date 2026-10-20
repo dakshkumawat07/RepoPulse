@@ -307,3 +307,35 @@ def test_analyze_defaults_to_current_directory():
     arguments = parser.parse_args(["analyze"])
 
     assert arguments.repository == "."
+
+
+
+def test_cli_limits_recent_commit_history(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    for number in range(1, 7):
+        make_commit(
+            repository,
+            "file.txt",
+            f"content {number}",
+            f"commit {number}",
+        )
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+            "--limit",
+            "2",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "commit 6" in result.stdout
+    assert "commit 5" in result.stdout
+    assert "commit 4" not in result.stdout
