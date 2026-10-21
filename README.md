@@ -319,12 +319,25 @@ A metric should never claim more than the underlying repository evidence can sup
 
 - **Pytest** — Automated testing
 
+## 🔄 Continuous Integration
+
+GitHub Actions automatically runs the test suite on:
+
+- Every push to the `main` branch
+- Every pull request targeting the `main` branch
+
+The workflow uses Python 3.13, installs RepoPulse and pytest, then runs:
+
+```bash
+pytest -q
+
 ### Development
 
 - **Git**
 - **GitHub**
 - **Linux**
 - **Python Virtual Environment**
+- **GitHub Actions** — Continuous integration
 
 ### Planned Technologies
 
@@ -338,7 +351,6 @@ Future versions may introduce technologies such as:
 - React / Next.js
 - Data visualization libraries
 - Docker
-- GitHub Actions
 
 > Technologies will be introduced only when they become necessary for the current milestone.
 
