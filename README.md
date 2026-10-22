@@ -171,6 +171,13 @@ It also supports JSON output:
 ```bash
 repopulse analyze . --json
 ```
+JSON output includes the RepoPulse version, making it easier for scripts and future integrations to identify the tool version:
+
+```json
+{
+  "version": "0.1.0",
+  "repository": "."
+}
 
 ### 12. ✅ CLI Exit Codes
 

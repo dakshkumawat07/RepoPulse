@@ -175,6 +175,7 @@ def test_cli_json_output(tmp_path):
 
     data = json.loads(result.stdout)
 
+    assert data["version"] == "0.1.0"
     assert data["repository"] == str(repository)
     assert data["branch"] == "main"
     assert data["total_commits"] == 1

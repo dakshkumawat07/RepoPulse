@@ -120,6 +120,7 @@ def main() -> int:
 
         if args.json:
             result = {
+                "version": __version__,
                 "repository": args.repository,
                 "branch": branch,
                 "total_commits": commit_count,
