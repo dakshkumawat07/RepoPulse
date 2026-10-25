@@ -12,7 +12,11 @@ from .commits import (
     get_latest_commit,
 )
 from .contributors import get_contributor_activity
-from .git import has_commits, is_git_repository
+from .git import (
+    get_repository_root,
+    has_commits,
+    is_git_repository,
+)
 from .hotspots import (
     get_change_hotspots,
     get_code_churn,
@@ -103,6 +107,7 @@ def main() -> int:
         return 1
 
     try:
+        repository_root = get_repository_root(args.repository)
         branch = get_current_branch(args.repository)
         commit_count = get_commit_count(args.repository)
         first_commit = get_first_commit(args.repository)
@@ -122,6 +127,7 @@ def main() -> int:
             result = {
                 "version": __version__,
                 "repository": args.repository,
+                "repository_root": repository_root,
                 "branch": branch,
                 "total_commits": commit_count,
                 "first_commit": asdict(first_commit),
@@ -144,6 +150,7 @@ def main() -> int:
         print("RepoPulse")
         print("────────────────────────────────────")
         print(f"Repository:    {args.repository}")
+        print(f"Repository Root: {repository_root}")
         print(f"Branch:        {branch}")
         print(f"Total Commits: {commit_count}")
 

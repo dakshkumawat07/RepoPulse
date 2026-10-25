@@ -1,5 +1,6 @@
 import json
 import subprocess
+import src.repopulse.git as git_module
 
 from src.repopulse.cli import create_parser
 
@@ -340,3 +341,14 @@ def test_cli_limits_recent_commit_history(tmp_path):
     assert "commit 6" in result.stdout
     assert "commit 5" in result.stdout
     assert "commit 4" not in result.stdout
+
+
+def test_get_repository_root(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "initial commit")
+
+    assert git_module.get_repository_root(
+        str(repository)
+    ) == str(repository)
+

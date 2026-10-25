@@ -92,3 +92,20 @@ def run_git_command(repository_path: str, *arguments: str) -> str:
         raise RuntimeError(result.stderr.strip())
 
     return result.stdout.strip()
+
+
+def get_repository_root(repository_path: str) -> str:
+    """
+    Return the root directory of the Git working tree.
+
+    Args:
+        repository_path: Path inside the Git repository.
+
+    Returns:
+        Absolute path to the repository root directory.
+    """
+    return run_git_command(
+        repository_path,
+        "rev-parse",
+        "--show-toplevel",
+    )

@@ -92,6 +92,8 @@ RepoPulse checks whether the provided path is a local Git repository before perf
 
 It supports both normal Git repositories and Git worktrees.
 
+RepoPulse also reports the absolute root path of the Git working tree.
+
 ### 2. 🌿 Branch Analysis
 
 Displays the current Git branch of the repository.
@@ -171,6 +173,7 @@ It also supports JSON output:
 ```bash
 repopulse analyze . --json
 ```
+
 JSON output includes the RepoPulse version, making it easier for scripts and future integrations to identify the tool version:
 
 ```json
@@ -198,7 +201,8 @@ The following example shows multiple current RepoPulse analysis sections togethe
 ```text
 RepoPulse
 ────────────────────────────────────
-Repository:    .
+Repository:
+Repository Root: /path/to/repository    .
 Branch:        main
 Total Commits: 12
 
@@ -751,11 +755,12 @@ The current test suite covers:
 - Detached HEAD branch detection
 - Default current-directory analysis
 - Configurable recent commit limits
+- Repository root path detection
 
 Current development state:
 
 ```text
-16 passed
+17 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.
