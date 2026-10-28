@@ -12,10 +12,12 @@ from .commits import (
     get_latest_commit,
 )
 from .contributors import get_contributor_activity
+
 from .git import (
     get_repository_root,
     has_commits,
     is_git_repository,
+    is_working_tree_clean,
 )
 from .hotspots import (
     get_change_hotspots,
@@ -108,6 +110,9 @@ def main() -> int:
 
     try:
         repository_root = get_repository_root(args.repository)
+        working_tree_clean = is_working_tree_clean(
+            args.repository
+        )
         branch = get_current_branch(args.repository)
         commit_count = get_commit_count(args.repository)
         first_commit = get_first_commit(args.repository)
@@ -128,6 +133,7 @@ def main() -> int:
                 "version": __version__,
                 "repository": args.repository,
                 "repository_root": repository_root,
+                "working_tree_clean": working_tree_clean,
                 "branch": branch,
                 "total_commits": commit_count,
                 "first_commit": asdict(first_commit),
@@ -151,6 +157,10 @@ def main() -> int:
         print("────────────────────────────────────")
         print(f"Repository:    {args.repository}")
         print(f"Repository Root: {repository_root}")
+        working_tree_status = (
+            "clean" if working_tree_clean else "dirty"
+        )
+        print(f"Working Tree: {working_tree_status}")
         print(f"Branch:        {branch}")
         print(f"Total Commits: {commit_count}")
 

@@ -109,3 +109,22 @@ def get_repository_root(repository_path: str) -> str:
         "rev-parse",
         "--show-toplevel",
     )
+
+
+def is_working_tree_clean(repository_path: str) -> bool:
+    """
+    Check whether the Git working tree has no uncommitted changes.
+
+    Args:
+        repository_path: Path inside the Git repository.
+
+    Returns:
+        True if the working tree is clean, otherwise False.
+    """
+    output = run_git_command(
+        repository_path,
+        "status",
+        "--porcelain",
+    )
+
+    return not output

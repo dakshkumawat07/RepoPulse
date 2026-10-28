@@ -352,3 +352,18 @@ def test_get_repository_root(tmp_path):
         str(repository)
     ) == str(repository)
 
+
+def test_working_tree_clean_status(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "original content", "initial commit")
+
+    assert git_module.is_working_tree_clean(
+        str(repository)
+    ) is True
+
+    (repository / "file.txt").write_text("changed content")
+
+    assert git_module.is_working_tree_clean(
+        str(repository)
+    ) is False

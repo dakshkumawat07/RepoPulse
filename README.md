@@ -192,6 +192,10 @@ RepoPulse returns useful exit codes for scripts and future CI workflows:
 | `1` | Invalid repository or Git-command failure |
 | `2` | Invalid command-line usage |
 
+### 13. 🧹 Working Tree Status
+
+Reports whether the analyzed repository has a clean or dirty working tree.
+
 ---
 
 ## 🖥️ Example Output
@@ -203,6 +207,7 @@ RepoPulse
 ────────────────────────────────────
 Repository:
 Repository Root: /path/to/repository    .
+Working Tree: clean
 Branch:        main
 Total Commits: 12
 
@@ -756,11 +761,12 @@ The current test suite covers:
 - Default current-directory analysis
 - Configurable recent commit limits
 - Repository root path detection
+- Clean and dirty working tree detection
 
 Current development state:
 
 ```text
-17 passed
+18 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.
