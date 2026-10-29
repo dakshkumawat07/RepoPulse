@@ -367,3 +367,26 @@ def test_working_tree_clean_status(tmp_path):
     assert git_module.is_working_tree_clean(
         str(repository)
     ) is False
+
+def test_cli_json_output_reports_readme_presence(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "initial commit")
+    make_commit(repository, "README.md", "# Test Repository\n", "add readme")
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+            "--json",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    data = json.loads(result.stdout)
+
+    assert data["readme_present"] is True

@@ -12,7 +12,7 @@ The project is being built incrementally with a strong focus on **explainability
 
 ## 📌 Project Status
 
-**Current Milestone:** `v0.3.0-dev`  
+**Current Milestone:** `v0.4.0-dev`  
 **Status:** 🚧 Active Development
 
 RepoPulse has moved beyond the initial repository-analyzer foundation and now includes several repository-history and code-change analysis capabilities.
@@ -196,6 +196,18 @@ RepoPulse returns useful exit codes for scripts and future CI workflows:
 
 Reports whether the analyzed repository has a clean or dirty working tree.
 
+
+### 14. 📘 README Presence
+
+Reports whether the repository root contains a supported README file.
+
+Supported names include:
+
+- `README`
+- `README.md`
+- `README.rst`
+- `README.txt`
+
 ---
 
 ## 🖥️ Example Output
@@ -207,6 +219,7 @@ RepoPulse
 ────────────────────────────────────
 Repository:
 Repository Root: /path/to/repository    .
+README:        present
 Working Tree: clean
 Branch:        main
 Total Commits: 12
@@ -435,8 +448,8 @@ Future versions may introduce technologies such as:
 |---|---|---|
 | v0.1.0 | Project foundation and local repository analyzer | ✅ Completed |
 | v0.2.0 | Commit intelligence | ✅ Completed |
-| v0.3.0 | Code change and hotspot analysis | 🚧 In Development |
-| v0.4.0 | Engineering health model | ⏳ Planned |
+| v0.3.0 | Code change and hotspot analysis | ✅ Completed |
+| v0.4.0 | Engineering health model |🚧 In Development |
 | v0.5.0 | GitHub integration | ⏳ Planned |
 | v0.6.0 | REST API | ⏳ Planned |
 | v0.7.0 | Web dashboard | ⏳ Planned |
@@ -762,11 +775,12 @@ The current test suite covers:
 - Configurable recent commit limits
 - Repository root path detection
 - Clean and dirty working tree detection
+- README presence detection
 
 Current development state:
 
 ```text
-18 passed
+19 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.
