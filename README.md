@@ -208,6 +208,19 @@ Supported names include:
 - `README.rst`
 - `README.txt`
 
+### 15. ⚖️ License Presence
+
+Reports whether the repository root contains a supported license file.
+
+Supported names include:
+
+- `LICENSE`
+- `LICENSE.md`
+- `LICENSE.txt`
+- `COPYING`
+- `COPYING.txt`
+
+
 ---
 
 ## 🖥️ Example Output
@@ -221,6 +234,7 @@ Repository:
 Repository Root: /path/to/repository    .
 README:        present
 Working Tree: clean
+License:       present
 Branch:        main
 Total Commits: 12
 
@@ -776,11 +790,12 @@ The current test suite covers:
 - Repository root path detection
 - Clean and dirty working tree detection
 - README presence detection
+- License presence detection
 
 Current development state:
 
 ```text
-19 passed
+20 passed
 ```
 
 The test suite will continue to grow as new analysis capabilities are introduced.

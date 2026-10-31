@@ -26,7 +26,7 @@ from .hotspots import (
     get_file_change_frequency,
 )
 
-from .health import has_readme
+from .health import has_license, has_readme
 
 def positive_int(value: str) -> int:
     """Return a positive integer for command-line arguments."""
@@ -113,6 +113,7 @@ def main() -> int:
     try:
         repository_root = get_repository_root(args.repository)
         readme_present = has_readme(repository_root)
+        license_present = has_license(repository_root)
         working_tree_clean = is_working_tree_clean(
             args.repository
         )
@@ -137,6 +138,7 @@ def main() -> int:
                 "repository": args.repository,
                 "repository_root": repository_root,
                 "readme_present": readme_present,
+                "license_present": license_present,
                 "working_tree_clean": working_tree_clean,
                 "branch": branch,
                 "total_commits": commit_count,
@@ -163,6 +165,8 @@ def main() -> int:
         print(f"Repository Root: {repository_root}")
         readme_status = "present" if readme_present else "missing"
         print(f"README:        {readme_status}")
+        license_status = "present" if license_present else "missing"
+        print(f"License:       {license_status}")
         working_tree_status = (
             "clean" if working_tree_clean else "dirty"
         )

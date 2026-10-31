@@ -390,3 +390,26 @@ def test_cli_json_output_reports_readme_presence(tmp_path):
     data = json.loads(result.stdout)
 
     assert data["readme_present"] is True
+
+def test_cli_json_output_reports_license_presence(tmp_path):
+    repository = create_test_repository(tmp_path)
+
+    make_commit(repository, "file.txt", "hello", "initial commit")
+    make_commit(repository, "LICENSE", "MIT License\n", "add license")
+
+    result = subprocess.run(
+        [
+            "python",
+            "-m",
+            "src.repopulse",
+            "analyze",
+            str(repository),
+            "--json",
+        ],
+        capture_output=True,
+        text=True,
+    )
+
+    data = json.loads(result.stdout)
+
+    assert data["license_present"] is True
